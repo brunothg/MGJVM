@@ -1,0 +1,4 @@
+MGJVM
+=====
+
+Minimale grafische JVM
