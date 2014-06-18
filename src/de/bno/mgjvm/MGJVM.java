@@ -2,12 +2,16 @@ package de.bno.mgjvm;
 
 import javax.swing.UIManager;
 
+import de.bno.mgjvm.grafik.GrafischeJVM;
+
 public class MGJVM {
 
 	public static void main(String[] args) {
 
 		setLookAndFeel();
-		// TODO: App starten
+
+		GrafischeJVM jvm = new GrafischeJVM();
+		jvm.setVisible(true);
 
 	}
 
