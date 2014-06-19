@@ -6,12 +6,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.undo.UndoManager;
+
+import de.bno.mgjvm.data.Save;
 
 public class Editor extends JPanel implements UnRedoListener, SaveListener {
 
@@ -222,8 +225,13 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener {
 
 	@Override
 	public void saveAs() {
-		// TODO Editor Save as
-		System.out.println("Save as");
+		try {
+			Save.saveAs(textArea.getText(), textArea);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
+					+ ":saveAs \n" + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@Override
