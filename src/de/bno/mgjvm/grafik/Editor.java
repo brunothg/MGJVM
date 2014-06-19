@@ -86,4 +86,14 @@ public class Editor extends JPanel implements DocumentListener {
 	public void setText(String s) {
 		textArea.setText(s);
 	}
+
+	@Override
+	public void requestFocus() {
+		textArea.requestFocus();
+	}
+
+	@Override
+	public boolean requestFocusInWindow() {
+		return textArea.requestFocusInWindow();
+	}
 }

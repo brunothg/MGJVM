@@ -14,7 +14,9 @@ import de.bno.mgjvm.grafik.data.InternalImage;
 public class GrafischeJVM extends JFrame {
 
 	private static final long serialVersionUID = 6719113940473276102L;
+
 	private JPanel contentPane;
+	private Editor editor;
 
 	public GrafischeJVM() {
 		setIconImage(InternalImage.load("MGJVM.png"));
@@ -26,7 +28,7 @@ public class GrafischeJVM extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		Editor editor = new Editor();
+		editor = new Editor();
 
 		JScrollPane editorScrollPane = new JScrollPane();
 		editorScrollPane
@@ -46,7 +48,14 @@ public class GrafischeJVM extends JFrame {
 
 		UndoRedoBar undoRedoBar = new UndoRedoBar();
 		toolBarPanel.add(undoRedoBar);
-
 	}
 
+	@Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+
+		if (b) {
+			editor.requestFocusInWindow();
+		}
+	}
 }
