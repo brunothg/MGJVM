@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,8 +29,12 @@ public class Save {
 			return saveAs(s, parent);
 		}
 
-		// TODO Save
-		return null;
+		OutputStream out = Files.newOutputStream(file);
+		out.write(s.getBytes(ENCODING));
+		out.flush();
+		out.close();
+
+		return path;
 	}
 
 	public static String saveAs(String s, Component parent)

@@ -29,6 +29,8 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener {
 
 	private UndoManager undoManager;
 
+	private String path;
+
 	public Editor() {
 		setLayout(new BorderLayout(0, 0));
 
@@ -219,14 +221,19 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener {
 
 	@Override
 	public void save() {
-		// TODO Editor Save
-		System.out.println("Save");
+		try {
+			path = Save.save(textArea.getText(), path, textArea);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
+					+ ":save \n" + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@Override
 	public void saveAs() {
 		try {
-			Save.saveAs(textArea.getText(), textArea);
+			path = Save.saveAs(textArea.getText(), textArea);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":saveAs \n" + e.getMessage(), "Error",
