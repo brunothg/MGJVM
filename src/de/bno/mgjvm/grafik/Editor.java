@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.print.PrinterException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -243,7 +244,12 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener {
 
 	@Override
 	public void print() {
-		// TODO Editor Print
-		System.out.println("Print");
+		try {
+			Save.print(textArea.getText());
+		} catch (PrinterException e) {
+			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
+					+ ":print \n" + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

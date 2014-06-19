@@ -1,6 +1,8 @@
 package de.bno.mgjvm.data;
 
 import java.awt.Component;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -93,7 +95,15 @@ public class Save {
 		return null;
 	}
 
-	public static void print(String s) {
-		// TODO Print
+	public static void print(String s) throws PrinterException {
+
+		PrinterJob pjob = PrinterJob.getPrinterJob();
+
+		if (pjob.printDialog() == false) {
+			return;
+		}
+
+		pjob.setPrintable(new PrintableText(s));
+		pjob.print();
 	}
 }
