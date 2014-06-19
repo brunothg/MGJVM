@@ -13,7 +13,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.undo.UndoManager;
 
-public class Editor extends JPanel implements UnRedoListener {
+public class Editor extends JPanel implements UnRedoListener, SaveListener {
 
 	private static final long serialVersionUID = 6492931134074408453L;
 	private static final int UNDO_LIMIT = 100;
@@ -202,7 +202,6 @@ public class Editor extends JPanel implements UnRedoListener {
 
 	@Override
 	public void undo() {
-		// TODO UNDO
 		if (undoManager.canUndo()) {
 			undoManager.undo();
 		}
@@ -210,9 +209,26 @@ public class Editor extends JPanel implements UnRedoListener {
 
 	@Override
 	public void redo() {
-		// TODO REDO
 		if (undoManager.canRedo()) {
 			undoManager.redo();
 		}
+	}
+
+	@Override
+	public void save() {
+		// TODO Editor Save
+		System.out.println("Save");
+	}
+
+	@Override
+	public void saveAs() {
+		// TODO Editor Save as
+		System.out.println("Save as");
+	}
+
+	@Override
+	public void print() {
+		// TODO Editor Print
+		System.out.println("Print");
 	}
 }

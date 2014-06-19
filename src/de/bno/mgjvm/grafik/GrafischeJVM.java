@@ -46,6 +46,10 @@ public class GrafischeJVM extends JFrame {
 		headPanel.add(toolBarPanel, BorderLayout.CENTER);
 		toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.X_AXIS));
 
+		SaveBar saveBar = new SaveBar(editor);
+		saveBar.setRollover(true);
+		toolBarPanel.add(saveBar);
+
 		UndoRedoBar undoRedoBar = new UndoRedoBar(editor);
 		toolBarPanel.add(undoRedoBar);
 	}
