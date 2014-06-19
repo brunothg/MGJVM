@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JSeparator;
 
 public class ProgramCounter extends JPanel {
 
@@ -20,10 +21,6 @@ public class ProgramCounter extends JPanel {
 	public ProgramCounter() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(new BorderLayout(0, 0));
-
-		JLabel lblProgramCounter = new JLabel("Program Counter");
-		lblProgramCounter.setFont(new Font("Tahoma", Font.BOLD, 11));
-		add(lblProgramCounter, BorderLayout.NORTH);
 
 		lblPc = new JLabel();
 		lblPc.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -42,6 +39,17 @@ public class ProgramCounter extends JPanel {
 		lblActCommand.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblActCommand.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblActCommand, BorderLayout.CENTER);
+
+		JPanel panel_1 = new JPanel();
+		add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblProgramCounter = new JLabel("Program Counter");
+		panel_1.add(lblProgramCounter);
+		lblProgramCounter.setFont(new Font("Tahoma", Font.BOLD, 11));
+
+		JSeparator separator = new JSeparator();
+		panel_1.add(separator, BorderLayout.SOUTH);
 
 		setProgramCount(1);
 	}
