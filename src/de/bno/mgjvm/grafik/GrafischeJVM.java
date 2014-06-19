@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class GrafischeJVM extends JFrame {
 
@@ -28,6 +29,10 @@ public class GrafischeJVM extends JFrame {
 		Editor editor = new Editor();
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setViewportView(editor);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
