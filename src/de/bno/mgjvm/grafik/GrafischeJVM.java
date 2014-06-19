@@ -2,12 +2,14 @@ package de.bno.mgjvm.grafik;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
+
+import de.bno.mgjvm.grafik.data.InternalImage;
 
 public class GrafischeJVM extends JFrame {
 
@@ -15,9 +17,7 @@ public class GrafischeJVM extends JFrame {
 	private JPanel contentPane;
 
 	public GrafischeJVM() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				GrafischeJVM.class
-						.getResource("/de/bno/mgjvm/grafik/MGJVM.png")));
+		setIconImage(InternalImage.load("MGJVM.png"));
 		setTitle("MGJVM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -28,13 +28,24 @@ public class GrafischeJVM extends JFrame {
 
 		Editor editor = new Editor();
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane
+		JScrollPane editorScrollPane = new JScrollPane();
+		editorScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane
+		editorScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setViewportView(editor);
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		editorScrollPane.setViewportView(editor);
+		contentPane.add(editorScrollPane, BorderLayout.CENTER);
+
+		JPanel headPanel = new JPanel();
+		contentPane.add(headPanel, BorderLayout.NORTH);
+		headPanel.setLayout(new BorderLayout(0, 0));
+
+		JPanel toolBarPanel = new JPanel();
+		headPanel.add(toolBarPanel, BorderLayout.CENTER);
+		toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.X_AXIS));
+
+		UndoRedoBar undoRedoBar = new UndoRedoBar();
+		toolBarPanel.add(undoRedoBar);
 
 	}
 
