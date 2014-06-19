@@ -95,9 +95,11 @@ public class Save {
 		return null;
 	}
 
-	public static void print(String s) throws PrinterException {
+	public static void print(String s, String name) throws PrinterException {
 
 		PrinterJob pjob = PrinterJob.getPrinterJob();
+		pjob.setJobName("MGJVM - "
+				+ ((name != null && !name.isEmpty()) ? name : "Unknown"));
 
 		if (pjob.printDialog() == false) {
 			return;

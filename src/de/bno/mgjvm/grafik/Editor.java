@@ -245,7 +245,7 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener {
 	@Override
 	public void print() {
 		try {
-			Save.print(textArea.getText());
+			Save.print(textArea.getText(), path);
 		} catch (PrinterException e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":print \n" + e.getMessage(), "Error",
