@@ -19,6 +19,7 @@ public class UndoRedoBar extends JToolBar {
 	private ActionListener actionListener;
 
 	public UndoRedoBar() {
+		super("Undo / Redo");
 
 		btnUndo = new JButton();
 		btnUndo.setIcon(new ImageIcon(InternalImage.load("arrow-undo-icon.png")));
