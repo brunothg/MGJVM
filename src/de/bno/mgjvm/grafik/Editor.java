@@ -89,15 +89,29 @@ public class Editor extends JPanel implements UnRedoListener {
 	public void deleteActualLine() {
 		String text = textArea.getText();
 
+		if (text.isEmpty()) {
+			return;
+		}
+
 		int pos = textArea.getCaretPosition();
 
 		int start = Math.max(0, text.lastIndexOf('\n', pos) + 1);
 		int end = Math.min(text.indexOf('\n', pos), text.length() - 1);
 
+		if (end == -1) {
+			end = text.length() - 1;
+			start = Math.max(0, text.lastIndexOf('\n', end - 1));
+		}
+
+		if (end < start) {
+			start = Math.max(0, text.lastIndexOf('\n', end - 1) + 1);
+		}
+
 		text = text.substring(0, start)
 				+ text.substring(end + 1, text.length());
 
 		textArea.setText(text);
+		textArea.setCaretPosition(Math.max(0, Math.min(pos, text.length())));
 	}
 
 	private UndoManager createUnRedo() {
