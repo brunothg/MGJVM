@@ -22,18 +22,23 @@ public class UndoRedoBar extends JToolBar {
 
 		btnUndo = new JButton();
 		btnUndo.setIcon(new ImageIcon(InternalImage.load("arrow-undo-icon.png")));
+		btnUndo.setToolTipText("Undo last Action");
+		btnUndo.addActionListener(createActionListener());
 		add(btnUndo);
 
 		btnRedo = new JButton();
+		btnRedo.setToolTipText("Redo last Action");
 		btnRedo.setIcon(new ImageIcon(InternalImage.load("arrow-redo-icon.png")));
+		btnRedo.addActionListener(createActionListener());
 		add(btnRedo);
 
-		createActionListener();
-		btnRedo.addActionListener(actionListener);
-		btnUndo.addActionListener(actionListener);
 	}
 
-	private void createActionListener() {
+	private ActionListener createActionListener() {
+		if (actionListener != null) {
+			return actionListener;
+		}
+
 		actionListener = new ActionListener() {
 
 			@Override
@@ -54,6 +59,7 @@ public class UndoRedoBar extends JToolBar {
 			}
 		};
 
+		return actionListener;
 	}
 
 	public UndoRedoBar(UnRedoListener listener) {

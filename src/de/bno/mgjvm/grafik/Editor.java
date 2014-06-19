@@ -1,28 +1,39 @@
 package de.bno.mgjvm.grafik;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.UIManager;
+import javax.swing.undo.UndoManager;
 
-import java.awt.Color;
-
-public class Editor extends JPanel implements DocumentListener {
+public class Editor extends JPanel implements UnRedoListener {
 
 	private static final long serialVersionUID = 6492931134074408453L;
+	private static final int UNDO_LIMIT = 100;
+
 	private JTextArea taLinenumbers;
 	private JTextArea textArea;
+
+	private DocumentListener docListener;
+	private KeyListener keyListener;
+
+	private UndoManager undoManager;
 
 	public Editor() {
 		setLayout(new BorderLayout(0, 0));
 
 		textArea = new JTextArea();
 		textArea.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
-		textArea.getDocument().addDocumentListener(this);
+		textArea.addKeyListener(createKeyListener());
+		textArea.getDocument().addDocumentListener(createDocumentListener());
+		textArea.getDocument().addUndoableEditListener(createUnRedo());
 		add(textArea, BorderLayout.CENTER);
 
 		taLinenumbers = new JTextArea("1");
@@ -33,19 +44,97 @@ public class Editor extends JPanel implements DocumentListener {
 		add(taLinenumbers, BorderLayout.WEST);
 	}
 
-	@Override
-	public void insertUpdate(DocumentEvent e) {
-		updateLineNumbering();
+	private KeyListener createKeyListener() {
+		if (keyListener != null) {
+			return keyListener;
+		}
+
+		keyListener = new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.isControlDown()) {
+					switch (e.getKeyCode()) {
+					case KeyEvent.VK_D:
+						deleteActualLine();
+						break;
+					}
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+				if (e.isControlDown()) {
+					switch (e.getKeyCode()) {
+					case KeyEvent.VK_Z:
+						undo();
+						break;
+					case KeyEvent.VK_Y:
+						redo();
+						break;
+					}
+				}
+
+			}
+		};
+
+		return keyListener;
 	}
 
-	@Override
-	public void removeUpdate(DocumentEvent e) {
-		updateLineNumbering();
+	public void deleteActualLine() {
+		String text = textArea.getText();
+
+		int pos = textArea.getCaretPosition();
+
+		int start = Math.max(0, text.lastIndexOf('\n', pos) + 1);
+		int end = Math.min(text.indexOf('\n', pos), text.length() - 1);
+
+		text = text.substring(0, start)
+				+ text.substring(end + 1, text.length());
+
+		textArea.setText(text);
 	}
 
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-		updateLineNumbering();
+	private UndoManager createUnRedo() {
+		if (undoManager != null) {
+			return undoManager;
+		}
+
+		undoManager = new UndoManager();
+		undoManager.setLimit(UNDO_LIMIT);
+
+		return undoManager;
+	}
+
+	private DocumentListener createDocumentListener() {
+		if (docListener != null) {
+			return docListener;
+		}
+
+		docListener = new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateLineNumbering();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateLineNumbering();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				updateLineNumbering();
+			}
+		};
+
+		return docListener;
 	}
 
 	protected void updateLineNumbering() {
@@ -95,5 +184,21 @@ public class Editor extends JPanel implements DocumentListener {
 	@Override
 	public boolean requestFocusInWindow() {
 		return textArea.requestFocusInWindow();
+	}
+
+	@Override
+	public void undo() {
+		// TODO UNDO
+		if (undoManager.canUndo()) {
+			undoManager.undo();
+		}
+	}
+
+	@Override
+	public void redo() {
+		// TODO REDO
+		if (undoManager.canRedo()) {
+			undoManager.redo();
+		}
 	}
 }

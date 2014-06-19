@@ -46,7 +46,7 @@ public class GrafischeJVM extends JFrame {
 		headPanel.add(toolBarPanel, BorderLayout.CENTER);
 		toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.X_AXIS));
 
-		UndoRedoBar undoRedoBar = new UndoRedoBar();
+		UndoRedoBar undoRedoBar = new UndoRedoBar(editor);
 		toolBarPanel.add(undoRedoBar);
 	}
 
@@ -54,8 +54,6 @@ public class GrafischeJVM extends JFrame {
 	public void setVisible(boolean b) {
 		super.setVisible(b);
 
-		if (b) {
-			editor.requestFocusInWindow();
-		}
+		editor.requestFocusInWindow();
 	}
 }
