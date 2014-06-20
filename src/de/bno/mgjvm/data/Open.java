@@ -14,7 +14,7 @@ public class Open {
 
 	private static final String ENCODING = "UTF-8";
 
-	public static String open(Component parent) throws IOException {
+	public static String[] open(Component parent) throws IOException {
 
 		File file = getOpenFile("MGJVM file", "gmj", parent);
 		if (file == null || !file.exists()) {
@@ -46,7 +46,7 @@ public class Open {
 
 		in.close();
 
-		return gmjString;
+		return new String[] { file.getPath(), gmjString };
 	}
 
 	private static File getOpenFile(final String fileDesc, final String ext,

@@ -259,10 +259,11 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	@Override
 	public void open() {
 		try {
-			String openString = Open.open(textArea);
+			String[] openStrings = Open.open(textArea);
 
-			if (openString != null) {
-				textArea.setText(openString);
+			if (openStrings != null) {
+				textArea.setText(openStrings[1]);
+				path = openStrings[0];
 			}
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
