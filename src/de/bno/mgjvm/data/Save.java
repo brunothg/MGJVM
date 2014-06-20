@@ -86,9 +86,13 @@ public class Save {
 						breakB = true;
 					}
 
+				} else {
+					breakB = true;
 				}
 
 				return file;
+			} else {
+				breakB = true;
 			}
 		} while (!breakB);
 
