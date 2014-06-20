@@ -56,6 +56,7 @@ public class GrafischeJVM extends JFrame {
 
 		BMenuBar menuBar = new BMenuBar();
 		menuBar.setSaveListener(editor);
+		menuBar.setOpenListener(editor);
 		setJMenuBar(menuBar);
 	}
 

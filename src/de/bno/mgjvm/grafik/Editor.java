@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -15,9 +16,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.undo.UndoManager;
 
+import de.bno.mgjvm.data.Open;
 import de.bno.mgjvm.data.Save;
 
-public class Editor extends JPanel implements UnRedoListener, SaveListener {
+public class Editor extends JPanel implements UnRedoListener, SaveListener,
+		OpenListener {
 
 	private static final long serialVersionUID = 6492931134074408453L;
 	private static final int UNDO_LIMIT = 100;
@@ -249,6 +252,21 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener {
 		} catch (PrinterException e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":print \n" + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	@Override
+	public void open() {
+		try {
+			String openString = Open.open(textArea);
+
+			if (openString != null) {
+				textArea.setText(openString);
+			}
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
+					+ ":open \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}

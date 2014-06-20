@@ -18,6 +18,7 @@ public class BMenuBar extends JMenuBar {
 
 	private ActionListener actionListener;
 	private SaveListener saveListener;
+	private OpenListener openListener;
 
 	// File Menu
 	private JMenuItem mniOpen;
@@ -46,7 +47,9 @@ public class BMenuBar extends JMenuBar {
 				Object source = e.getSource();
 
 				if (source == mniOpen) {
-					// TODO MBar Open
+					if (openListener != null) {
+						openListener.open();
+					}
 				} else if (source == mniSave) {
 					if (saveListener != null) {
 						saveListener.save();
@@ -114,5 +117,9 @@ public class BMenuBar extends JMenuBar {
 
 	public void setSaveListener(SaveListener listener) {
 		this.saveListener = listener;
+	}
+
+	public void setOpenListener(OpenListener listener) {
+		this.openListener = listener;
 	}
 }
