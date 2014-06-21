@@ -11,6 +11,8 @@ import java.awt.print.PrinterException;
 
 public class PrintableText implements Printable {
 
+	private static final Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 13);
+
 	private String printText;
 	private String[] lines;
 
@@ -24,12 +26,23 @@ public class PrintableText implements Printable {
 
 		if (lineNumbers) {
 			for (int i = 0; i < lines.length; i++) {
-				lines[i] = (i + 1) + ": " + lines[i];
+				lines[i] = addSpaces("" + (i + 1), lines.length) + ": "
+						+ lines[i];
 			}
 		}
 	}
 
-	private final Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 13);
+	private String addSpaces(String string, int lines) {
+		String ret = string;
+
+		int missingSpaces = ("" + lines).length() - string.length();
+
+		for (int i = 0; i < missingSpaces; i++) {
+			ret = "0" + ret;
+		}
+
+		return ret;
+	}
 
 	@Override
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
