@@ -72,15 +72,6 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 					case KeyEvent.VK_D:
 						deleteActualLine();
 						break;
-					}
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-
-				if (e.isControlDown()) {
-					switch (e.getKeyCode()) {
 					case KeyEvent.VK_Z:
 						undo();
 						break;
@@ -89,7 +80,10 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 						break;
 					}
 				}
+			}
 
+			@Override
+			public void keyReleased(KeyEvent e) {
 			}
 		};
 
