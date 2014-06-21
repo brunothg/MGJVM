@@ -29,16 +29,6 @@ public class GrafischeJVM extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		editor = new Editor();
-
-		JScrollPane editorScrollPane = new JScrollPane();
-		editorScrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		editorScrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		editorScrollPane.setViewportView(editor);
-		contentPane.add(editorScrollPane, BorderLayout.CENTER);
-
 		JPanel headPanel = new JPanel();
 		contentPane.add(headPanel, BorderLayout.NORTH);
 		headPanel.setLayout(new BorderLayout(0, 0));
@@ -53,6 +43,16 @@ public class GrafischeJVM extends JFrame {
 
 		UndoRedoBar undoRedoBar = new UndoRedoBar(editor);
 		toolBarPanel.add(undoRedoBar);
+
+		editor = new Editor();
+
+		JScrollPane editorScrollPane = new JScrollPane();
+		editorScrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		editorScrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		editorScrollPane.setViewportView(editor);
+		contentPane.add(editorScrollPane, BorderLayout.CENTER);
 
 		BMenuBar menuBar = new BMenuBar();
 		menuBar.setSaveListener(editor);
