@@ -293,7 +293,8 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 
 	@Override
 	public void newFile() {
-		textArea.setText("");
+		String defFileNew = Open.loadInternalFile("defNew.txt");
+		textArea.setText((defFileNew != null) ? defFileNew : "");
 		path = null;
 	}
 

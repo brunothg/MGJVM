@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,6 +94,41 @@ public class Open {
 		}
 
 		return null;
+	}
+
+	public static String loadInternalFile(String name) {
+
+		try {
+			String readFile = null;
+
+			InputStream in = Open.class
+					.getResourceAsStream("/de/bno/mgjvm/data/" + name);
+
+			List<Byte> bytes = new LinkedList<Byte>();
+
+			byte[] buffer = new byte[1024];
+
+			int read = -1;
+			while ((read = in.read(buffer)) != -1) {
+				for (int i = 0; i < read; i++) {
+					bytes.add(buffer[i]);
+				}
+			}
+
+			buffer = new byte[bytes.size()];
+
+			int index = 0;
+			for (Byte b : bytes) {
+				buffer[index] = b.byteValue();
+				index++;
+			}
+			readFile = new String(buffer, ENCODING);
+
+			in.close();
+			return readFile;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }
