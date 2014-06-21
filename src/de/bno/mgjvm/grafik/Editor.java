@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.print.PrinterException;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -272,13 +271,17 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 			String[] openStrings = Open.open(textArea);
 
 			if (openStrings != null) {
-				textArea.setText(openStrings[1]);
-				path = openStrings[0];
+				setFile(openStrings[0], openStrings[1]);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":open \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public void setFile(String path, String text) {
+		this.path = path;
+		textArea.setText(text);
 	}
 }

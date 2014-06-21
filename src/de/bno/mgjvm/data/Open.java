@@ -3,7 +3,9 @@ package de.bno.mgjvm.data;
 import java.awt.Component;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +23,11 @@ public class Open {
 			return null;
 		}
 
+		return loadFile(file);
+	}
+
+	public static String[] loadFile(File file) throws FileNotFoundException,
+			IOException, UnsupportedEncodingException {
 		String gmjString = null;
 
 		FileInputStream in = new FileInputStream(file);

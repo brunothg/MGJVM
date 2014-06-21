@@ -1,14 +1,17 @@
 package de.bno.mgjvm.grafik;
 
 import java.awt.BorderLayout;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import de.bno.mgjvm.data.Open;
 import de.bno.mgjvm.grafik.data.InternalImage;
 
 public class GrafischeJVM extends JFrame {
@@ -65,5 +68,16 @@ public class GrafischeJVM extends JFrame {
 		super.setVisible(b);
 
 		editor.requestFocusInWindow();
+	}
+
+	public void setActiveFile(File f) {
+		try {
+			String[] loadFile = Open.loadFile(f);
+			editor.setFile(loadFile[0], loadFile[1]);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, GrafischeJVM.class.getName()
+					+ ":setActiveFile \n" + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
