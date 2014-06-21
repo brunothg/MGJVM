@@ -22,14 +22,16 @@ public class UndoRedoBar extends JToolBar {
 		super("Undo / Redo");
 
 		btnUndo = new JButton();
-		btnUndo.setIcon(new ImageIcon(InternalImage.load("arrow-undo-icon.png")));
+		btnUndo.setIcon(new ImageIcon(InternalImage
+				.load("Actions-edit-undo-icon.png")));
 		btnUndo.setToolTipText("Undo last Action (CTRL + Z)");
 		btnUndo.addActionListener(createActionListener());
 		add(btnUndo);
 
 		btnRedo = new JButton();
 		btnRedo.setToolTipText("Redo last Action (CTRL + Y)");
-		btnRedo.setIcon(new ImageIcon(InternalImage.load("arrow-redo-icon.png")));
+		btnRedo.setIcon(new ImageIcon(InternalImage
+				.load("Actions-edit-redo-icon.png")));
 		btnRedo.addActionListener(createActionListener());
 		add(btnRedo);
 

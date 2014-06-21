@@ -96,15 +96,16 @@ public class BMenuBar extends JMenuBar {
 
 		mniSave = new JMenuItem("Save");
 		setShortcut(mniSave, KeyEvent.VK_S, ActionEvent.CTRL_MASK);
-		mniSave.setIcon(new ImageIcon(InternalImage.load("save-icon.png")));
+		mniSave.setIcon(new ImageIcon(InternalImage
+				.load("Actions-document-save-icon.png")));
 		mniSave.addActionListener(createActionListener());
 		mnFile.add(mniSave);
 
 		mniSaveAs = new JMenuItem("Save As...");
 		setShortcut(mniSaveAs, KeyEvent.VK_S, ActionEvent.CTRL_MASK
 				| ActionEvent.ALT_MASK);
-		mniSaveAs
-				.setIcon(new ImageIcon(InternalImage.load("save-all-icon.png")));
+		mniSaveAs.setIcon(new ImageIcon(InternalImage
+				.load("Actions-document-save-as-icon.png")));
 		mniSaveAs.addActionListener(createActionListener());
 		mnFile.add(mniSaveAs);
 
@@ -113,7 +114,7 @@ public class BMenuBar extends JMenuBar {
 		mniPrint = new JMenuItem("Print");
 		setShortcut(mniPrint, KeyEvent.VK_P, ActionEvent.CTRL_MASK);
 		mniPrint.setIcon(new ImageIcon(InternalImage
-				.load("Device-Printer-icon.png")));
+				.load("Actions-document-print-icon.png")));
 		mniPrint.addActionListener(createActionListener());
 		mnFile.add(mniPrint);
 	}

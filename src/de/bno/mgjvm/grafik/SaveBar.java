@@ -26,21 +26,22 @@ public class SaveBar extends JToolBar {
 		super("Save...");
 
 		btnSave = new JButton();
-		btnSave.setIcon(new ImageIcon(InternalImage.load("save-icon.png")));
+		btnSave.setIcon(new ImageIcon(InternalImage
+				.load("Actions-document-save-icon.png")));
 		btnSave.setToolTipText("Save (CTRL + S)");
 		btnSave.addActionListener(createActionListener());
 		add(btnSave);
 
 		btnSaveAs = new JButton();
-		btnSaveAs
-				.setIcon(new ImageIcon(InternalImage.load("save-all-icon.png")));
+		btnSaveAs.setIcon(new ImageIcon(InternalImage
+				.load("Actions-document-save-as-icon.png")));
 		btnSaveAs.setToolTipText("Save as (CTRL + SHIFT + S)");
 		btnSaveAs.addActionListener(createActionListener());
 		add(btnSaveAs);
 
 		btnPrint = new JButton();
 		btnPrint.setIcon(new ImageIcon(InternalImage
-				.load("Device-Printer-icon.png")));
+				.load("Actions-document-print-icon.png")));
 		btnPrint.setToolTipText("Print (CTRL + P)");
 		btnPrint.addActionListener(createActionListener());
 		add(btnPrint);
