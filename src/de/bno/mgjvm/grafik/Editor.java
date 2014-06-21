@@ -2,6 +2,7 @@ package de.bno.mgjvm.grafik;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.print.PrinterException;
@@ -227,6 +228,10 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	public void save() {
 		try {
 			path = Save.save(textArea.getText(), path, textArea);
+
+			if (path != null) {
+				showSuccess("File saved");
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":save \n" + e.getMessage(), "Error",
@@ -238,11 +243,22 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	public void saveAs() {
 		try {
 			path = Save.saveAs(textArea.getText(), textArea);
+
+			if (path != null) {
+				showSuccess("File saved");
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":saveAs \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	private void showSuccess(String string) {
+		Point locationOnScreen = textArea.getLocationOnScreen();
+		Toast.showToast(string, 500,
+				new Point(locationOnScreen.x + textArea.getWidth() / 2,
+						locationOnScreen.y + textArea.getHeight() / 2));
 	}
 
 	@Override
