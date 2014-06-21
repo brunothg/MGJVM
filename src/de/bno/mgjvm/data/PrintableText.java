@@ -15,8 +15,18 @@ public class PrintableText implements Printable {
 	private String[] lines;
 
 	public PrintableText(String printText) {
+		this(printText, true);
+	}
+
+	public PrintableText(String printText, boolean lineNumbers) {
 		this.printText = printText;
 		lines = this.printText.split("\n");
+
+		if (lineNumbers) {
+			for (int i = 0; i < lines.length; i++) {
+				lines[i] = i + ": " + lines[i];
+			}
+		}
 	}
 
 	private final Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 13);
