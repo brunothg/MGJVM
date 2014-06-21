@@ -14,7 +14,9 @@ import javax.swing.border.EmptyBorder;
 import de.bno.mgjvm.data.Open;
 import de.bno.mgjvm.grafik.data.InternalImage;
 
-public class GrafischeJVM extends JFrame {
+public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
+
+	private static final String TITLE = "MGJVM";
 
 	private static final long serialVersionUID = 6719113940473276102L;
 
@@ -23,7 +25,7 @@ public class GrafischeJVM extends JFrame {
 
 	public GrafischeJVM() {
 		setIconImage(InternalImage.load("MGJVM.png"));
-		setTitle("MGJVM");
+		setTitle("");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 
@@ -42,11 +44,12 @@ public class GrafischeJVM extends JFrame {
 		headPanel.add(toolBarPanel, BorderLayout.CENTER);
 		toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.X_AXIS));
 
-		SaveBar saveBar = new SaveBar(editor);
+		SaveBar saveBar = new SaveBar(this);
 		saveBar.setRollover(true);
 		toolBarPanel.add(saveBar);
 
 		UndoRedoBar undoRedoBar = new UndoRedoBar(editor);
+		undoRedoBar.setRollover(true);
 		toolBarPanel.add(undoRedoBar);
 
 		JScrollPane editorScrollPane = new JScrollPane();
@@ -58,8 +61,8 @@ public class GrafischeJVM extends JFrame {
 		contentPane.add(editorScrollPane, BorderLayout.CENTER);
 
 		BMenuBar menuBar = new BMenuBar();
-		menuBar.setSaveListener(editor);
-		menuBar.setOpenListener(editor);
+		menuBar.setSaveListener(this);
+		menuBar.setOpenListener(this);
 		setJMenuBar(menuBar);
 	}
 
@@ -73,11 +76,62 @@ public class GrafischeJVM extends JFrame {
 	public void setActiveFile(File f) {
 		try {
 			String[] loadFile = Open.loadFile(f);
+			setTitle(fileName(loadFile[0]));
+
 			editor.setFile(loadFile[0], loadFile[1]);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, GrafischeJVM.class.getName()
 					+ ":setActiveFile \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	@Override
+	public void setTitle(String s) {
+		String addTitle = "";
+
+		if (s != null & !s.isEmpty()) {
+			addTitle = " - " + s;
+		}
+
+		super.setTitle(TITLE + addTitle);
+	}
+
+	@Override
+	public String open() {
+		String ret = editor.open();
+		setTitle(fileName(ret));
+
+		return ret;
+	}
+
+	@Override
+	public String save() {
+		String ret = editor.save();
+		setTitle(fileName(ret));
+
+		return ret;
+	}
+
+	@Override
+	public String saveAs() {
+		String ret = editor.saveAs();
+		setTitle(fileName(ret));
+
+		return ret;
+	}
+
+	private String fileName(String ret) {
+
+		return ret.substring(Math.max(
+				0,
+				Math.min(
+						Math.max(ret.lastIndexOf('/') + 1,
+								ret.lastIndexOf('\\') + 1), ret.length())));
+	}
+
+	@Override
+	public void print() {
+		editor.print();
 	}
 }

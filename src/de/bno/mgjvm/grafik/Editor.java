@@ -218,33 +218,41 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	}
 
 	@Override
-	public void save() {
+	public String save() {
 		try {
 			path = Save.save(textArea.getText(), path, textArea);
 
 			if (path != null) {
 				showSuccess("File saved");
+
+				return path;
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":save \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+
+		return null;
 	}
 
 	@Override
-	public void saveAs() {
+	public String saveAs() {
 		try {
 			path = Save.saveAs(textArea.getText(), textArea);
 
 			if (path != null) {
 				showSuccess("File saved");
+
+				return path;
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":saveAs \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+
+		return null;
 	}
 
 	private void showSuccess(String string) {
@@ -266,18 +274,21 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	}
 
 	@Override
-	public void open() {
+	public String open() {
 		try {
 			String[] openStrings = Open.open(textArea);
 
 			if (openStrings != null) {
 				setFile(openStrings[0], openStrings[1]);
+				return openStrings[0];
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(textArea, Editor.class.getName()
 					+ ":open \n" + e.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+
+		return null;
 	}
 
 	public void setFile(String path, String text) {

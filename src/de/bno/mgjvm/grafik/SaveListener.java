@@ -2,9 +2,9 @@ package de.bno.mgjvm.grafik;
 
 public interface SaveListener {
 
-	public void save();
+	public String save();
 
-	public void saveAs();
+	public String saveAs();
 
 	public void print();
 
