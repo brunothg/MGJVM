@@ -25,7 +25,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 
 	public GrafischeJVM() {
 		setIconImage(InternalImage.load("MGJVM.png"));
-		setTitle("");
+		setTitle("Unknown*");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 
