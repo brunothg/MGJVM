@@ -26,6 +26,8 @@ public class BMenuBar extends JMenuBar {
 	private JMenuItem mniSaveAs;
 	private JMenuItem mniPrint;
 
+	private JMenuItem mniNew;
+
 	// File Menu
 
 	public BMenuBar() {
@@ -62,6 +64,10 @@ public class BMenuBar extends JMenuBar {
 					if (saveListener != null) {
 						saveListener.print();
 					}
+				} else if (source == mniNew) {
+					if (openListener != null) {
+						openListener.newFile();
+					}
 				}
 			}
 		};
@@ -73,6 +79,12 @@ public class BMenuBar extends JMenuBar {
 
 		JMenu mnFile = new JMenu("File");
 		add(mnFile);
+
+		mniNew = new JMenuItem("New");
+		setShortcut(mniNew, KeyEvent.VK_N, ActionEvent.ALT_MASK
+				| ActionEvent.SHIFT_MASK);
+		mniNew.addActionListener(createActionListener());
+		mnFile.add(mniNew);
 
 		mniOpen = new JMenuItem("Open File...");
 		setShortcut(mniOpen, KeyEvent.VK_O, ActionEvent.CTRL_MASK);

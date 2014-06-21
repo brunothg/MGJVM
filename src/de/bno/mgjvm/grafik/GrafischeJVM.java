@@ -106,6 +106,12 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 	}
 
 	@Override
+	public void newFile() {
+		editor.newFile();
+		setTitle("Unknown*");
+	}
+
+	@Override
 	public String save() {
 		String ret = editor.save();
 		setTitle(fileName(ret));
