@@ -60,6 +60,10 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 		editorScrollPane.setViewportView(editor);
 		contentPane.add(editorScrollPane, BorderLayout.CENTER);
 
+		JPanel tablePanel = new JPanel();
+		contentPane.add(tablePanel, BorderLayout.EAST);
+		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
+
 		BMenuBar menuBar = new BMenuBar();
 		menuBar.setSaveListener(this);
 		menuBar.setOpenListener(this);
