@@ -20,7 +20,8 @@ import java.awt.Insets;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 
-public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
+public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
+		ExecutionListener {
 
 	private static final double DIVIDER_POSITION_AT_STARTUP = 0.7;
 
@@ -33,6 +34,8 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 	private boolean firstVisible;
 
 	private JSplitPane splitPane;
+	private ExecutionControlBar executionControlBar;
+	private BMenuBar menuBar;
 
 	public GrafischeJVM() {
 		setIconImage(InternalImage.load("MGJVM.png"));
@@ -63,7 +66,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 		undoRedoBar.setRollover(true);
 		toolBarPanel.add(undoRedoBar);
 
-		ExecutionControlBar executionControlBar = new ExecutionControlBar();
+		executionControlBar = new ExecutionControlBar(this);
 		toolBarPanel.add(executionControlBar);
 
 		JScrollPane editorScrollPane = new JScrollPane();
@@ -119,9 +122,10 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 		gbc_fieldPool.gridy = 2;
 		tablePanel.add(fieldPool, gbc_fieldPool);
 
-		BMenuBar menuBar = new BMenuBar();
+		menuBar = new BMenuBar();
 		menuBar.setSaveListener(this);
 		menuBar.setOpenListener(this);
+		menuBar.setExecutionListener(this);
 		setJMenuBar(menuBar);
 
 		firstVisible = true;
@@ -205,5 +209,31 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 	@Override
 	public void print() {
 		editor.print();
+	}
+
+	@Override
+	public void startExecution() {
+		menuBar.setExecutionSelected(true);
+		executionControlBar.setSelected(true);
+		// TODO Start
+	}
+
+	@Override
+	public void stopExecution() {
+		menuBar.setExecutionSelected(false);
+		executionControlBar.setSelected(false);
+		// TODO Stop
+	}
+
+	@Override
+	public void executeOneStep() {
+		// TODO Step
+
+	}
+
+	@Override
+	public void execute() {
+		// TODO Finish
+
 	}
 }

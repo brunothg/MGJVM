@@ -19,6 +19,7 @@ public class BMenuBar extends JMenuBar {
 	private ActionListener actionListener;
 	private SaveListener saveListener;
 	private OpenListener openListener;
+	private ExecutionListener executionListener;
 
 	// File Menu
 	private JMenuItem mniOpen;
@@ -31,11 +32,8 @@ public class BMenuBar extends JMenuBar {
 
 	// Execution Menu
 	private JMenu mnExecution;
-
 	private JToogleMenuItem mniStartStop;
-
 	private JMenuItem mniOneStep;
-
 	private JMenuItem mniFinish;
 
 	// Execution Menu
@@ -79,6 +77,26 @@ public class BMenuBar extends JMenuBar {
 					if (openListener != null) {
 						openListener.newFile();
 					}
+				} else if (source == mniStartStop) {
+					if (executionListener != null) {
+						if (mniStartStop.isSelected()) {
+							executionListener.stopExecution();
+						} else {
+							executionListener.startExecution();
+						}
+					}
+
+					mniOneStep.setEnabled(mniStartStop.isSelected());
+					mniFinish.setEnabled(mniStartStop.isSelected());
+				} else if (source == mniOneStep) {
+					if (executionListener != null) {
+						executionListener.executeOneStep();
+					}
+				} else if (source == mniFinish) {
+					if (executionListener != null) {
+						executionListener.execute();
+					}
+
 				}
 			}
 		};
@@ -139,12 +157,28 @@ public class BMenuBar extends JMenuBar {
 
 		mniStartStop = new JToogleMenuItem("Start");
 		mniStartStop.setSelectedText("Stop");
+		setShortcut(mniStartStop, -1, KeyEvent.VK_F9, ActionEvent.CTRL_MASK);
+		mniStartStop.setNormalIcon(new ImageIcon(InternalImage
+				.load("Actions-media-playback-start-icon.png")));
+		mniStartStop.setSelectedIcon(new ImageIcon(InternalImage
+				.load("Actions-media-playback-stop-icon.png")));
+		mniStartStop.addActionListener(createActionListener());
 		mnExecution.add(mniStartStop);
 
 		mniOneStep = new JMenuItem("Next step");
+		setShortcut(mniOneStep, -1, KeyEvent.VK_F10, ActionEvent.CTRL_MASK);
+		mniOneStep.setIcon(new ImageIcon(InternalImage
+				.load("Actions-media-seek-forward-icon.png")));
+		mniOneStep.addActionListener(createActionListener());
+		mniOneStep.setEnabled(false);
 		mnExecution.add(mniOneStep);
 
 		mniFinish = new JMenuItem("Run to end");
+		setShortcut(mniFinish, -1, KeyEvent.VK_F11, ActionEvent.CTRL_MASK);
+		mniFinish.setIcon(new ImageIcon(InternalImage
+				.load("Actions-media-skip-forward-icon.png")));
+		mniFinish.addActionListener(createActionListener());
+		mniFinish.setEnabled(false);
 		mnExecution.add(mniFinish);
 	}
 
@@ -153,7 +187,9 @@ public class BMenuBar extends JMenuBar {
 	}
 
 	private void setShortcut(JMenuItem mni, int mnemonic, int key, int mask) {
-		mni.setMnemonic(mnemonic);
+		if (mnemonic != -1) {
+			mni.setMnemonic(mnemonic);
+		}
 		mni.setAccelerator(KeyStroke.getKeyStroke(key, mask));
 	}
 
@@ -163,5 +199,16 @@ public class BMenuBar extends JMenuBar {
 
 	public void setOpenListener(OpenListener listener) {
 		this.openListener = listener;
+	}
+
+	public void setExecutionListener(ExecutionListener listener) {
+		this.executionListener = listener;
+	}
+
+	public void setExecutionSelected(boolean selected) {
+		mniStartStop.setSelected(selected);
+
+		mniOneStep.setEnabled(mniStartStop.isSelected());
+		mniFinish.setEnabled(mniStartStop.isSelected());
 	}
 }

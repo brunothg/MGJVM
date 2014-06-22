@@ -50,6 +50,12 @@ public class ExecutionControlBar extends JToolBar {
 		add(btnFinish);
 	}
 
+	public ExecutionControlBar(ExecutionListener listener) {
+		this();
+
+		setExecutionListener(listener);
+	}
+
 	private ActionListener createActionListener() {
 		if (actionListener != null) {
 			return actionListener;
@@ -103,9 +109,22 @@ public class ExecutionControlBar extends JToolBar {
 	}
 
 	/**
-	 * Setzt den Start / Stop Knopf auf gestoppt Status
+	 * Drückt den Start / Stop Knopf Um den Knopfstatus auf gestartet zu setzen
+	 * {@link #setStopped()} benutzen
 	 */
-	public void setStopped() {
-		btnStartStop.setSelected(false);
+	public void start() {
+		if (!btnStartStop.isSelected()) {
+			btnStartStop.doClick();
+		}
+	}
+
+	/**
+	 * Setzt den Start / Stop Knopf Status
+	 */
+	public void setSelected(boolean selected) {
+		btnStartStop.setSelected(selected);
+
+		btnOneStep.setEnabled(btnStartStop.isSelected());
+		btnFinish.setEnabled(btnStartStop.isSelected());
 	}
 }
