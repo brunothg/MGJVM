@@ -19,7 +19,7 @@ import javax.swing.table.TableCellEditor;
 
 import de.bno.mgjvm.grafik.data.InternalImage;
 
-public class ConstantPool extends JPanel {
+public class FieldPool extends JPanel {
 
 	private static final String[][] TYPES = new String[][] {
 			{ "short", "int", "long", "float", "double", "byte", "char" },
@@ -34,7 +34,7 @@ public class ConstantPool extends JPanel {
 
 	private TypeValueModel tableModel;
 
-	public ConstantPool() {
+	public FieldPool() {
 		setLayout(new BorderLayout());
 
 		table = new JTable() {
@@ -141,10 +141,6 @@ public class ConstantPool extends JPanel {
 		for (int i = 0; i < selectedRows.length; i++) {
 			int index = selectedRows[i];
 
-			if (index == 0) {
-				continue;
-			}
-
 			tableModel.removeRow(index);
 
 			for (int j = i + 1; j < selectedRows.length; j++) {
@@ -164,8 +160,7 @@ public class ConstantPool extends JPanel {
 		private static final long serialVersionUID = 6792727545456523046L;
 
 		public TypeValueModel() {
-			super(new String[][] { { "class", "this" } }, new String[] {
-					"Type", "Value" });
+			super(new String[][] {}, new String[] { "Type", "Value" });
 		}
 
 		public Class<String> getColumnClass(int columnIndex) {
@@ -174,10 +169,6 @@ public class ConstantPool extends JPanel {
 		}
 
 		public boolean isCellEditable(int row, int column) {
-
-			if (row == 0) {
-				return false;
-			}
 
 			return true;
 		}
@@ -194,7 +185,7 @@ public class ConstantPool extends JPanel {
 	 * @param index
 	 * @return new String[]{type, value}
 	 */
-	public String[] getConstant(int index) {
+	public String[] getField(int index) {
 
 		String type = table.getValueAt(index, 0).toString();
 		String value = table.getValueAt(index, 1).toString();
