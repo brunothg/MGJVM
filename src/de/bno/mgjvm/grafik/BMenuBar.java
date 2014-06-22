@@ -25,14 +25,25 @@ public class BMenuBar extends JMenuBar {
 	private JMenuItem mniSave;
 	private JMenuItem mniSaveAs;
 	private JMenuItem mniPrint;
-
 	private JMenuItem mniNew;
 
 	// File Menu
 
+	// Execution Menu
+	private JMenu mnExecution;
+
+	private JToogleMenuItem mniStartStop;
+
+	private JMenuItem mniOneStep;
+
+	private JMenuItem mniFinish;
+
+	// Execution Menu
+
 	public BMenuBar() {
 
 		createFileMenu();
+		createExecutionMenu();
 	}
 
 	private ActionListener createActionListener() {
@@ -118,6 +129,23 @@ public class BMenuBar extends JMenuBar {
 				.load("Actions-document-print-icon.png")));
 		mniPrint.addActionListener(createActionListener());
 		mnFile.add(mniPrint);
+	}
+
+	private void createExecutionMenu() {
+
+		mnExecution = new JMenu("Execution");
+		mnExecution.setMnemonic(KeyEvent.VK_E);
+		add(mnExecution);
+
+		mniStartStop = new JToogleMenuItem("Start");
+		mniStartStop.setSelectedText("Stop");
+		mnExecution.add(mniStartStop);
+
+		mniOneStep = new JMenuItem("Next step");
+		mnExecution.add(mniOneStep);
+
+		mniFinish = new JMenuItem("Run to end");
+		mnExecution.add(mniFinish);
 	}
 
 	private void setShortcut(JMenuItem mni, int key, int mask) {

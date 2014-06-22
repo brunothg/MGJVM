@@ -29,7 +29,7 @@ public class ExecutionControlBar extends JToolBar {
 				.load("Actions-media-playback-stop-icon.png")));
 		btnStartStop.setIcon(new ImageIcon(InternalImage
 				.load("Actions-media-playback-start-icon.png")));
-		btnStartStop.setToolTipText("Start / Stop");
+		btnStartStop.setToolTipText("Start / Stop (CTRL + F9)");
 		btnStartStop.addActionListener(createActionListener());
 		add(btnStartStop);
 
@@ -37,14 +37,14 @@ public class ExecutionControlBar extends JToolBar {
 		btnOneStep.setIcon(new ImageIcon(InternalImage
 				.load("Actions-media-seek-forward-icon.png")));
 		btnOneStep.addActionListener(createActionListener());
-		btnOneStep.setToolTipText("Next step");
+		btnOneStep.setToolTipText("Next step (CTRL + F10)");
 		btnOneStep.setEnabled(false);
 		add(btnOneStep);
 
 		btnFinish = new JButton();
 		btnFinish.setIcon(new ImageIcon(InternalImage
 				.load("Actions-media-skip-forward-icon.png")));
-		btnFinish.setToolTipText("Run to end");
+		btnFinish.setToolTipText("Run to end (CTRL + F11)");
 		btnFinish.addActionListener(createActionListener());
 		btnFinish.setEnabled(false);
 		add(btnFinish);
