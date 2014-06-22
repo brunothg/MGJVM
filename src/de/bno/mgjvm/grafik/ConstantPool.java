@@ -17,10 +17,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import de.bno.mgjvm.data.Pool;
 import de.bno.mgjvm.data.Variable;
 import de.bno.mgjvm.grafik.data.InternalImage;
 
-public class ConstantPool extends JPanel {
+public class ConstantPool extends JPanel implements Pool<Variable> {
 
 	private static final String[][] TYPES = new String[][] {
 			{ "short", "int", "long", "float", "double", "byte", "char" },
@@ -212,6 +213,16 @@ public class ConstantPool extends JPanel {
 		}
 
 		return ret;
+	}
+
+	@Override
+	public int getPoolCount() {
+		return getConstantCount();
+	}
+
+	@Override
+	public Variable getPoolElement(int index) {
+		return getConstant(index);
 	}
 
 }

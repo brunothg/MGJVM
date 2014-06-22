@@ -17,10 +17,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import de.bno.mgjvm.data.Pool;
 import de.bno.mgjvm.data.Variable;
 import de.bno.mgjvm.grafik.data.InternalImage;
 
-public class FieldPool extends JPanel {
+public class FieldPool extends JPanel implements Pool<Variable> {
 
 	private static final String[][] TYPES = new String[][] {
 			{ "short", "int", "long", "float", "double", "byte", "char" },
@@ -203,6 +204,16 @@ public class FieldPool extends JPanel {
 		}
 
 		return ret;
+	}
+
+	@Override
+	public int getPoolCount() {
+		return getFieldCount();
+	}
+
+	@Override
+	public Variable getPoolElement(int index) {
+		return getField(index);
 	}
 
 }
