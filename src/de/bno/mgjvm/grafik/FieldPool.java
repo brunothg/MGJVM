@@ -175,7 +175,7 @@ public class FieldPool extends JPanel {
 
 	}
 
-	public int getConstantCount() {
+	public int getFieldCount() {
 		return table.getRowCount();
 	}
 
