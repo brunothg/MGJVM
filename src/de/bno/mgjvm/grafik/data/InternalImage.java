@@ -42,7 +42,7 @@ public class InternalImage {
 
 	}
 
-	private static Image fullLoad(String s) throws IOException {
+	public static Image fullLoad(String s) throws IOException {
 
 		Image ret;
 

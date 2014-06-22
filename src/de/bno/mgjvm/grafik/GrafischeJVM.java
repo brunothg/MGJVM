@@ -63,6 +63,9 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener {
 		undoRedoBar.setRollover(true);
 		toolBarPanel.add(undoRedoBar);
 
+		ExecutionControlBar executionControlBar = new ExecutionControlBar();
+		toolBarPanel.add(executionControlBar);
+
 		JScrollPane editorScrollPane = new JScrollPane();
 		editorScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
