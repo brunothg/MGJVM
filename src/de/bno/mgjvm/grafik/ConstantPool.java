@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import de.bno.mgjvm.data.Variable;
 import de.bno.mgjvm.grafik.data.InternalImage;
 
 public class ConstantPool extends JPanel {
@@ -194,12 +195,23 @@ public class ConstantPool extends JPanel {
 	 * @param index
 	 * @return new String[]{type, value}
 	 */
-	public String[] getConstant(int index) {
+	public Variable getConstant(int index) {
 
 		String type = table.getValueAt(index, 0).toString();
 		String value = table.getValueAt(index, 1).toString();
 
-		return new String[] { type, value };
+		return new Variable(type, value);
+	}
+
+	public Variable[] getConstants() {
+		Variable[] ret = new Variable[getConstantCount()];
+
+		for (int i = 0; i < ret.length; i++) {
+
+			ret[i] = getConstant(i);
+		}
+
+		return ret;
 	}
 
 }

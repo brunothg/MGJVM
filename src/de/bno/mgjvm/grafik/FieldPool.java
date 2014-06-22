@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
+import de.bno.mgjvm.data.Variable;
 import de.bno.mgjvm.grafik.data.InternalImage;
 
 public class FieldPool extends JPanel {
@@ -185,12 +186,23 @@ public class FieldPool extends JPanel {
 	 * @param index
 	 * @return new String[]{type, value}
 	 */
-	public String[] getField(int index) {
+	public Variable getField(int index) {
 
 		String type = table.getValueAt(index, 0).toString();
 		String value = table.getValueAt(index, 1).toString();
 
-		return new String[] { type, value };
+		return new Variable(type, value, true);
+	}
+
+	public Variable[] getFields() {
+		Variable[] ret = new Variable[getFieldCount()];
+
+		for (int i = 0; i < ret.length; i++) {
+
+			ret[i] = getField(i);
+		}
+
+		return ret;
 	}
 
 }
