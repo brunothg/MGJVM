@@ -78,6 +78,7 @@ public class BMenuBar extends JMenuBar {
 	private void createFileMenu() {
 
 		JMenu mnFile = new JMenu("File");
+		mnFile.setMnemonic(KeyEvent.VK_F);
 		add(mnFile);
 
 		mniNew = new JMenuItem("New");
@@ -102,8 +103,8 @@ public class BMenuBar extends JMenuBar {
 		mnFile.add(mniSave);
 
 		mniSaveAs = new JMenuItem("Save As...");
-		setShortcut(mniSaveAs, KeyEvent.VK_S, ActionEvent.CTRL_MASK
-				| ActionEvent.ALT_MASK);
+		setShortcut(mniSaveAs, KeyEvent.VK_A, KeyEvent.VK_S,
+				ActionEvent.CTRL_MASK | ActionEvent.ALT_MASK);
 		mniSaveAs.setIcon(new ImageIcon(InternalImage
 				.load("Actions-document-save-as-icon.png")));
 		mniSaveAs.addActionListener(createActionListener());

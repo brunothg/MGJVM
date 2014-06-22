@@ -38,6 +38,7 @@ public class ExecutionControlBar extends JToolBar {
 				.load("Actions-media-seek-forward-icon.png")));
 		btnOneStep.addActionListener(createActionListener());
 		btnOneStep.setToolTipText("Next step");
+		btnOneStep.setEnabled(false);
 		add(btnOneStep);
 
 		btnFinish = new JButton();
@@ -45,6 +46,7 @@ public class ExecutionControlBar extends JToolBar {
 				.load("Actions-media-skip-forward-icon.png")));
 		btnFinish.setToolTipText("Run to end");
 		btnFinish.addActionListener(createActionListener());
+		btnFinish.setEnabled(false);
 		add(btnFinish);
 	}
 
@@ -68,6 +70,8 @@ public class ExecutionControlBar extends JToolBar {
 							executionListener.stopExecution();
 						}
 					}
+					btnOneStep.setEnabled(btnStartStop.isSelected());
+					btnFinish.setEnabled(btnStartStop.isSelected());
 				} else if (source == btnOneStep) {
 					if (executionListener != null) {
 						executionListener.executeOneStep();
