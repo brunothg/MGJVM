@@ -1,6 +1,7 @@
 package de.bno.mgjvm.grafik;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -10,23 +11,22 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 public class StackFrame extends JPanel {
 
 	private static final long serialVersionUID = -3091479309650103296L;
-	private JSeparator seperator;
+	private Line seperator;
 
 	List<String> fields;
 	LinkedList<String> stack;
 
 	public StackFrame(int fieldSize) {
+
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		seperator = new JSeparator(SwingConstants.HORIZONTAL);
-		seperator.setForeground(Color.BLACK);
+		seperator = new Line(2);
+		seperator.setForeground(Color.RED);
 		add(seperator);
 
 		fields = new ArrayList<String>(fieldSize);
@@ -54,6 +54,12 @@ public class StackFrame extends JPanel {
 
 		if (peek != null) {
 			stack.removeLast();
+		}
+
+		Component topComponent = getComponent(0);
+		if (topComponent != seperator) {
+			remove(0);
+			revalidate();
 		}
 
 		return peek;
