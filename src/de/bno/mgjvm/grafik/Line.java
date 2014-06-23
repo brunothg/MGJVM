@@ -12,9 +12,12 @@ public class Line extends JComponent {
 
 	private static final long serialVersionUID = 8453233785843384132L;
 	private int thickness;
+	private boolean paint;
 
 	public Line(int thickness) {
 		this.thickness = thickness;
+		this.paint = true;
+
 		setBorder(BorderFactory.createEmptyBorder(1, 0, 1, 0));
 		setForeground(Color.RED);
 	}
@@ -23,8 +26,16 @@ public class Line extends JComponent {
 		this(1);
 	}
 
+	public void paint(boolean b) {
+		this.paint = b;
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
+		if (!paint) {
+			return;
+		}
+
 		Insets insets = getInsets();
 
 		g.setColor(getForeground());
