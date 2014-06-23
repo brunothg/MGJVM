@@ -182,7 +182,7 @@ public class FieldPool extends JPanel implements Pool<Variable> {
 	}
 
 	/**
-	 * Konstante
+	 * Feld
 	 * 
 	 * @param index
 	 * @return new String[]{type, value}
@@ -193,6 +193,18 @@ public class FieldPool extends JPanel implements Pool<Variable> {
 		String value = table.getValueAt(index, 1).toString();
 
 		return new Variable(type, value, true);
+	}
+
+	/**
+	 * Ändere den Wert des Feldes
+	 * 
+	 * @param index
+	 *            Index des Feldes
+	 * @param value
+	 *            Neuer Wert
+	 */
+	public void setValue(int index, String value) {
+		table.setValueAt(value, index, 1);
 	}
 
 	public Variable[] getFields() {
