@@ -71,6 +71,12 @@ public class UndoRedoBar extends JToolBar {
 		this.listener = listener;
 	}
 
+	@Override
+	public void setEnabled(boolean b) {
+		btnRedo.setEnabled(b);
+		btnUndo.setEnabled(b);
+	}
+
 	public void setUnRedoListener(UnRedoListener listener) {
 		this.listener = listener;
 	}

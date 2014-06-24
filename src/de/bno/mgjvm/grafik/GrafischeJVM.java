@@ -38,6 +38,14 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	private ExecutionControlBar executionControlBar;
 	private BMenuBar menuBar;
 
+	private UndoRedoBar undoRedoBar;
+
+	private SaveBar saveBar;
+
+	private ConstantPool constantPool;
+
+	private FieldPool fieldPool;
+
 	public GrafischeJVM() {
 		setIconImage(InternalImage.load("MGJVM.png"));
 		setTitle("Unknown*");
@@ -59,11 +67,11 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		headPanel.add(toolBarPanel, BorderLayout.CENTER);
 		toolBarPanel.setLayout(new BoxLayout(toolBarPanel, BoxLayout.X_AXIS));
 
-		SaveBar saveBar = new SaveBar(this);
+		saveBar = new SaveBar(this);
 		saveBar.setRollover(true);
 		toolBarPanel.add(saveBar);
 
-		UndoRedoBar undoRedoBar = new UndoRedoBar(editor);
+		undoRedoBar = new UndoRedoBar(editor);
 		undoRedoBar.setRollover(true);
 		toolBarPanel.add(undoRedoBar);
 
@@ -87,12 +95,12 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		splitPane.setLeftComponent(editorScrollPane);
 		splitPane.setRightComponent(tablePanel);
 
-		ConstantPool constantPool = new ConstantPool();
+		constantPool = new ConstantPool();
 		constantPool.setBorder(new TitledBorder(null, "Constant Pool",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		tablePanel.add(constantPool);
 
-		FieldPool fieldPool = new FieldPool();
+		fieldPool = new FieldPool();
 		fieldPool.setBorder(new TitledBorder(null, "Field Pool",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		tablePanel.add(fieldPool);
@@ -192,8 +200,14 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	public void startExecution() {
 		menuBar.setExecutionSelected(true);
 		executionControlBar.setSelected(true);
-		// TODO Start
 		openExecutionFrame();
+		editor.setEnabled(false);
+		undoRedoBar.setEnabled(false);
+		saveBar.setEnabled(false);
+		menuBar.setFileMenuEnabled(false);
+		constantPool.setEnabled(false);
+		fieldPool.setEnabled(false);
+		// TODO Start
 	}
 
 	private void openExecutionFrame() {
@@ -219,8 +233,14 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	public void stopExecution() {
 		menuBar.setExecutionSelected(false);
 		executionControlBar.setSelected(false);
-		// TODO Stop
 		exInfFrame.setClosable(true);
+		editor.setEnabled(true);
+		undoRedoBar.setEnabled(true);
+		saveBar.setEnabled(true);
+		menuBar.setFileMenuEnabled(true);
+		constantPool.setEnabled(true);
+		fieldPool.setEnabled(true);
+		// TODO Stop
 	}
 
 	@Override

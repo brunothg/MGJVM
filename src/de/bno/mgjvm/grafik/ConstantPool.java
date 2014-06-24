@@ -85,6 +85,14 @@ public class ConstantPool extends JPanel implements Pool<Variable> {
 		buttonPanel.add(btnRemove);
 	}
 
+	@Override
+	public void setEnabled(boolean b) {
+		super.setEnabled(b);
+		btnAdd.setEnabled(b);
+		btnRemove.setEnabled(b);
+		table.setEnabled(b);
+	}
+
 	private KeyListener createKeyListener() {
 
 		if (keyListener != null) {

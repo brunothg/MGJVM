@@ -22,6 +22,7 @@ public class BMenuBar extends JMenuBar {
 	private ExecutionListener executionListener;
 
 	// File Menu
+	private JMenu mnFile;
 	private JMenuItem mniOpen;
 	private JMenuItem mniSave;
 	private JMenuItem mniSaveAs;
@@ -42,6 +43,15 @@ public class BMenuBar extends JMenuBar {
 
 		createFileMenu();
 		createExecutionMenu();
+	}
+
+	public void setFileMenuEnabled(boolean b) {
+		mnFile.setEnabled(b);
+		mniOpen.setEnabled(b);
+		mniSave.setEnabled(b);
+		mniSaveAs.setEnabled(b);
+		mniPrint.setEnabled(b);
+		mniNew.setEnabled(b);
 	}
 
 	private ActionListener createActionListener() {
@@ -106,7 +116,7 @@ public class BMenuBar extends JMenuBar {
 
 	private void createFileMenu() {
 
-		JMenu mnFile = new JMenu("File");
+		mnFile = new JMenu("File");
 		mnFile.setMnemonic(KeyEvent.VK_F);
 		add(mnFile);
 

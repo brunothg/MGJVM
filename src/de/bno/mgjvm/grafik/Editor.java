@@ -180,6 +180,12 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 		return ret;
 	}
 
+	@Override
+	public void setEnabled(boolean b) {
+		super.setEnabled(b);
+		textArea.setEditable(b);
+	}
+
 	public int getNumberOfLines() {
 
 		return textArea.getLineCount();

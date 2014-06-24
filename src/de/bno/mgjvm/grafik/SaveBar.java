@@ -53,6 +53,13 @@ public class SaveBar extends JToolBar {
 		this.saveListener = listener;
 	}
 
+	@Override
+	public void setEnabled(boolean b) {
+		btnPrint.setEnabled(b);
+		btnSave.setEnabled(b);
+		btnSaveAs.setEnabled(b);
+	}
+
 	private ActionListener createActionListener() {
 		if (actionListener != null) {
 			return actionListener;
