@@ -151,10 +151,6 @@ public class ConstantPool extends JPanel implements Pool<Variable> {
 		for (int i = 0; i < selectedRows.length; i++) {
 			int index = selectedRows[i];
 
-			if (index == 0) {
-				continue;
-			}
-
 			tableModel.removeRow(index);
 
 			for (int j = i + 1; j < selectedRows.length; j++) {
@@ -174,8 +170,7 @@ public class ConstantPool extends JPanel implements Pool<Variable> {
 		private static final long serialVersionUID = 6792727545456523046L;
 
 		public TypeValueModel() {
-			super(new String[][] { { "class", "this" } }, new String[] {
-					"Type", "Value" });
+			super(new String[][] {}, new String[] { "Type", "Value" });
 		}
 
 		public Class<String> getColumnClass(int columnIndex) {
@@ -184,10 +179,6 @@ public class ConstantPool extends JPanel implements Pool<Variable> {
 		}
 
 		public boolean isCellEditable(int row, int column) {
-
-			if (row == 0) {
-				return false;
-			}
 
 			return true;
 		}
