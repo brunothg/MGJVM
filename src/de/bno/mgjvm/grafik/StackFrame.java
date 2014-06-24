@@ -3,6 +3,7 @@ package de.bno.mgjvm.grafik;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class StackFrame extends JPanel {
 		stack.add(s);
 
 		JLabel lblNew = new JLabel(s);
+		lblNew.setFont(new Font(Font.SERIF, Font.BOLD, 13));
 
 		container.add(lblNew, 0);
 	}
@@ -79,6 +81,7 @@ public class StackFrame extends JPanel {
 		fields.add(s);
 
 		JLabel lblNew = new JLabel(s);
+		lblNew.setFont(new Font(Font.SERIF, Font.BOLD, 13));
 
 		container.add(lblNew);
 	}

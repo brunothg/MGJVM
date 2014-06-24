@@ -17,7 +17,7 @@ public class ProgramCounter extends JPanel {
 
 	private static final long serialVersionUID = -3358453183916529967L;
 
-	long pc;
+	int pc;
 
 	private JLabel lblPc;
 
@@ -83,11 +83,11 @@ public class ProgramCounter extends JPanel {
 		return lblActCommand.getText();
 	}
 
-	public long getProgramCount() {
+	public int getProgramCount() {
 		return pc;
 	}
 
-	public void setProgramCount(long pc) {
+	public void setProgramCount(int pc) {
 		this.pc = pc;
 		lblPc.setText("" + pc);
 	}

@@ -1,11 +1,15 @@
 package de.bno.mgjvm.jvm;
 
+import static de.bno.mgjvm.jvm.InstructionSet.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import de.bno.mgjvm.grafik.ConstantPool;
+import de.bno.mgjvm.grafik.ExecutionInformationFrame;
 import de.bno.mgjvm.grafik.FieldPool;
 import de.bno.mgjvm.grafik.ProgramCounter;
+import de.bno.mgjvm.grafik.StackFrame;
 
 public class JVM {
 
@@ -13,6 +17,7 @@ public class JVM {
 	private ProgramCounter pc;
 	private ConstantPool cp;
 	private FieldPool fp;
+	private ExecutionInformationFrame info;
 
 	private boolean deleted;
 
@@ -20,11 +25,13 @@ public class JVM {
 
 	private JVMListener jvmListener;
 
-	public JVM(String[] prog, ProgramCounter pc, ConstantPool cp, FieldPool fp) {
+	public JVM(String[] prog, ProgramCounter pc, ConstantPool cp, FieldPool fp,
+			ExecutionInformationFrame info) {
 		this.prog = prog;
 		this.pc = pc;
 		this.cp = cp;
 		this.fp = fp;
+		this.info = info;
 		this.functionTable = new HashMap<String, Integer>(30, 0.6f);
 
 		createFunctionTable();
@@ -37,8 +44,61 @@ public class JVM {
 		pc.setActualCommand("Ready search <init>(V)V...");
 
 		int entryIndex = goToEntry();
-		pc.setProgramCount(entryIndex);
+		pc.setProgramCount(entryIndex + 1);
 		pc.setActualCommand(prog[entryIndex]);
+	}
+
+	/**
+	 * Führt einen einzigen Befehl aus
+	 * 
+	 * @return true wenn jvm noch läuft
+	 */
+	public synchronized boolean execute() {
+
+		executeActual();
+
+		int cmdIndex = getNextCmd();
+
+		if (cmdIndex == 0) {
+			delete();
+		} else {
+			pc.setProgramCount(cmdIndex + 1);
+			pc.setActualCommand(prog[cmdIndex]);
+		}
+
+		return !isDeleted();
+	}
+
+	private void executeActual() {
+		// TODO: Execute command
+		int index = pc.getProgramCount() - 1;
+		String cmd = prog[index];
+
+		String[] parts = cmd.split("[\t\\s]+");
+		StackFrame stackFrame = info.peekActiveStackFrame();
+
+		if (parts[0].startsWith("iconst_")) {
+			int addConst = execICONST_(parts[0]);
+			stackFrame.push(addConst + "I");
+		} else if (parts[0].equals("iadd")) {
+			stackFrame.push(execIADD(stackFrame) + "I");
+		} else if (parts[0].equals("isub")) {
+			stackFrame.push(execISUB(stackFrame) + "I");
+		}
+
+	}
+
+	private int getNextCmd() {
+		int ret = 0;
+
+		for (int i = pc.getProgramCount(); i < prog.length; i++) {
+			if (prog[i] != null && !prog[i].isEmpty() && !isComment(prog[i])) {
+				ret = i;
+				break;
+			}
+		}
+
+		return ret;
 	}
 
 	private int goToEntry() {
@@ -48,6 +108,8 @@ public class JVM {
 				|| isComment(prog[entryIndex])) {
 			entryIndex++;
 		}
+
+		info.createNewStackFrame("this");
 
 		return entryIndex;
 	}
@@ -94,6 +156,11 @@ public class JVM {
 	}
 
 	public void delete() {
+
+		if (isDeleted()) {
+			return;
+		}
+
 		pc.setProgramCount(0);
 		pc.setActualCommand("Deleted");
 		pc = null;
@@ -104,6 +171,10 @@ public class JVM {
 		// TODO: Delete JVM
 
 		deleted = true;
+
+		if (jvmListener != null) {
+			jvmListener.executionFinished("deleted");
+		}
 	}
 
 	public void setJVMListener(JVMListener listener) {
@@ -111,6 +182,7 @@ public class JVM {
 	}
 
 	public boolean isDeleted() {
+
 		return deleted;
 	}
 }

@@ -224,7 +224,9 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 
 		String[] lines = program.split("[\n\r\f]");
 
-		jvm = new JVM(lines, exInfFrame.getPC(), constantPool, fieldPool);
+		jvm = new JVM(lines, exInfFrame.getPC(), constantPool, fieldPool,
+				exInfFrame);
+		jvm.setJVMListener(this);
 	}
 
 	private void openExecutionFrame() {
@@ -265,13 +267,29 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 
 	@Override
 	public void executeOneStep() {
-		// TODO Step
-
+		if (jvm != null) {
+			try {
+				jvm.execute();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(),
+						"Error line " + exInfFrame.getPC().getProgramCount(),
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	@Override
 	public void execute() {
-		// TODO Finish
+		// TODO: Execute finish
+		boolean execute;
 
+		do {
+			execute = jvm.execute();
+		} while (execute && jvm != null);
+	}
+
+	@Override
+	public void executionFinished(String msg) {
+		stopExecution();
 	}
 }
