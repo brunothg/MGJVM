@@ -35,7 +35,7 @@ public class ProgramCounter extends JPanel {
 		lblCommand.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCommand, BorderLayout.WEST);
 
-		lblActCommand = new JLabel("N/A");
+		lblActCommand = new JLabel();
 		lblActCommand.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblActCommand.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblActCommand, BorderLayout.CENTER);
@@ -52,9 +52,15 @@ public class ProgramCounter extends JPanel {
 		panel_1.add(separator, BorderLayout.SOUTH);
 
 		setProgramCount(1);
+		setActualCommand(null);
 	}
 
 	public void setActualCommand(String s) {
+		if (s == null) {
+			lblActCommand.setText("N/A");
+			return;
+		}
+
 		lblActCommand.setText(s);
 	}
 

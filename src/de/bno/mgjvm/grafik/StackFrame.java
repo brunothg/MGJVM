@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,15 +20,24 @@ public class StackFrame extends JPanel {
 
 	List<String> fields;
 	LinkedList<String> stack;
+	private JPanel container;
+	private Component verticalGlue;
 
 	public StackFrame(int fieldSize) {
 
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+		verticalGlue = Box.createVerticalGlue();
+		add(verticalGlue);
+
+		container = new JPanel();
+		add(container);
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
 		seperator = new Line(2);
 		seperator.setForeground(Color.RED);
-		add(seperator);
+		container.add(seperator);
 
 		fields = new ArrayList<String>(fieldSize);
 		stack = new LinkedList<String>();
@@ -42,7 +52,7 @@ public class StackFrame extends JPanel {
 
 		JLabel lblNew = new JLabel(s);
 
-		add(lblNew, 0);
+		container.add(lblNew, 0);
 	}
 
 	public String peek() {
@@ -56,10 +66,10 @@ public class StackFrame extends JPanel {
 			stack.removeLast();
 		}
 
-		Component topComponent = getComponent(0);
+		Component topComponent = container.getComponent(0);
 		if (topComponent != seperator) {
-			remove(0);
-			revalidate();
+			container.remove(0);
+			container.revalidate();
 		}
 
 		return peek;
@@ -70,7 +80,7 @@ public class StackFrame extends JPanel {
 
 		JLabel lblNew = new JLabel(s);
 
-		add(lblNew);
+		container.add(lblNew);
 	}
 
 	public String getField(int index) {
@@ -87,5 +97,4 @@ public class StackFrame extends JPanel {
 	public Dimension getMaximumSize() {
 		return getPreferredSize();
 	}
-
 }
