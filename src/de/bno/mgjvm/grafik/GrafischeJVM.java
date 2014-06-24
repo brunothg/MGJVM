@@ -1,6 +1,8 @@
 package de.bno.mgjvm.grafik;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.BoxLayout;
@@ -10,10 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import de.bno.mgjvm.data.Open;
 import de.bno.mgjvm.grafik.data.InternalImage;
+
 import javax.swing.border.TitledBorder;
 
 public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
@@ -24,6 +28,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	private static final String TITLE = "MGJVM";
 
 	private static final long serialVersionUID = 6719113940473276102L;
+	private ExecutionInformationFrame exInfFrame;
 
 	private JPanel contentPane;
 	private Editor editor;
@@ -100,6 +105,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		setJMenuBar(menuBar);
 
 		firstVisible = true;
+		exInfFrame = new ExecutionInformationFrame(this);
 	}
 
 	@Override
@@ -187,6 +193,26 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		menuBar.setExecutionSelected(true);
 		executionControlBar.setSelected(true);
 		// TODO Start
+		openExecutionFrame();
+	}
+
+	private void openExecutionFrame() {
+		exInfFrame.resetPC();
+		exInfFrame.resetStackFrames();
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+		if (screenSize.width - (getX() + getWidth()) >= exInfFrame.getWidth()) {
+			exInfFrame.setLocation(getX() + getWidth(), getY());
+		} else if (getX() >= exInfFrame.getWidth()) {
+			exInfFrame.setLocation(getX() - exInfFrame.getWidth(), getY());
+		} else {
+			exInfFrame.setLocationByPlatform(true);
+		}
+
+		exInfFrame.attachToParent(true, SwingConstants.RIGHT);
+		exInfFrame.setClosable(false);
+		exInfFrame.setVisible(true);
 	}
 
 	@Override
@@ -194,6 +220,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		menuBar.setExecutionSelected(false);
 		executionControlBar.setSelected(false);
 		// TODO Stop
+		exInfFrame.setClosable(true);
 	}
 
 	@Override

@@ -1,10 +1,15 @@
 package de.bno.mgjvm.grafik;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSeparator;
 
@@ -53,6 +58,16 @@ public class ProgramCounter extends JPanel {
 
 		setProgramCount(1);
 		setActualCommand(null);
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		return getMinimumSize();
+	}
+
+	@Override
+	public Dimension getMaximumSize() {
+		return getMinimumSize();
 	}
 
 	public void setActualCommand(String s) {
