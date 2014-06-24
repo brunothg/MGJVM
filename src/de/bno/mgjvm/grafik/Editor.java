@@ -2,6 +2,7 @@ package de.bno.mgjvm.grafik;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -39,6 +40,7 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 		setLayout(new BorderLayout(0, 0));
 
 		textArea = new JTextArea();
+		textArea.setFont(new Font(Font.SERIF, Font.PLAIN, 13));
 		textArea.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		textArea.addKeyListener(createKeyListener());
 		textArea.getDocument().addDocumentListener(createDocumentListener());
@@ -46,6 +48,7 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 		add(textArea, BorderLayout.CENTER);
 
 		taLinenumbers = new JTextArea("1");
+		taLinenumbers.setFont(textArea.getFont());
 		taLinenumbers.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
 		taLinenumbers.setDisabledTextColor(Color.BLACK);
 		taLinenumbers.setBackground(UIManager.getColor("Label.background"));
