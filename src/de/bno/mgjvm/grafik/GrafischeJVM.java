@@ -14,14 +14,15 @@ import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import de.bno.mgjvm.data.Open;
 import de.bno.mgjvm.grafik.data.InternalImage;
-
-import javax.swing.border.TitledBorder;
+import de.bno.mgjvm.jvm.JVM;
+import de.bno.mgjvm.jvm.JVMListener;
 
 public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
-		ExecutionListener {
+		ExecutionListener, JVMListener {
 
 	private static final double DIVIDER_POSITION_AT_STARTUP = 0.7;
 
@@ -45,6 +46,8 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	private ConstantPool constantPool;
 
 	private FieldPool fieldPool;
+
+	private JVM jvm;
 
 	public GrafischeJVM() {
 		setIconImage(InternalImage.load("MGJVM.png"));
@@ -207,7 +210,21 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		menuBar.setFileMenuEnabled(false);
 		constantPool.setEnabled(false);
 		fieldPool.setEnabled(false);
-		// TODO Start
+
+		// Start
+		startJVM();
+	}
+
+	private void startJVM() {
+		if (jvm != null || (jvm != null && !jvm.isDeleted())) {
+			jvm.delete();
+		}
+
+		String program = editor.getText();
+
+		String[] lines = program.split("[\n\r\f]");
+
+		jvm = new JVM(lines, exInfFrame.getPC(), constantPool, fieldPool);
 	}
 
 	private void openExecutionFrame() {
@@ -240,7 +257,10 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		menuBar.setFileMenuEnabled(true);
 		constantPool.setEnabled(true);
 		fieldPool.setEnabled(true);
-		// TODO Stop
+
+		// Stop
+		jvm.delete();
+		jvm = null;
 	}
 
 	@Override
