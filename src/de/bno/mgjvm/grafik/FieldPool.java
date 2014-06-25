@@ -220,6 +220,12 @@ public class FieldPool extends JPanel implements Pool<Variable> {
 		table.setValueAt(value, index, 1);
 	}
 
+	public void removeAllLines() {
+		while (table.getRowCount() > 0) {
+			tableModel.removeRow(0);
+		}
+	}
+
 	public Variable[] getFields() {
 		Variable[] ret = new Variable[getFieldCount()];
 

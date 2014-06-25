@@ -218,6 +218,12 @@ public class ConstantPool extends JPanel implements Pool<Variable> {
 		return ret;
 	}
 
+	public void removeAllLines() {
+		while (table.getRowCount() > 0) {
+			tableModel.removeRow(0);
+		}
+	}
+
 	@Override
 	public int getPoolCount() {
 		return getConstantCount();

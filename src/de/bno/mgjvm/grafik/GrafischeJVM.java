@@ -167,6 +167,8 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	public void newFile() {
 		editor.newFile();
 		setTitle("Unknown*");
+		constantPool.removeAllLines();
+		fieldPool.removeAllLines();
 	}
 
 	@Override
