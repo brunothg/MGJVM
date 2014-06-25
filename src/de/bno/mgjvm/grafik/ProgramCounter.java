@@ -36,7 +36,7 @@ public class ProgramCounter extends JPanel {
 		add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblCommand = new JLabel("Command:");
+		JLabel lblCommand = new JLabel("Command: ");
 		lblCommand.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblCommand, BorderLayout.WEST);
 
