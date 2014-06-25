@@ -36,13 +36,18 @@ public class Save {
 		}
 
 		OutputStream out = Files.newOutputStream(file);
+		writeFile(s, cp, fp, out);
+		out.close();
+
+		return path;
+	}
+
+	private static void writeFile(String s, ConstantPool cp, FieldPool fp,
+			OutputStream out) throws IOException, UnsupportedEncodingException {
 		out.write((getPoolString(cp, fp)).getBytes(ENCODING));
 		out.write("\n===\n".getBytes(ENCODING));
 		out.write(s.getBytes(ENCODING));
 		out.flush();
-		out.close();
-
-		return path;
 	}
 
 	private static String getPoolString(ConstantPool cp, FieldPool fp) {
@@ -79,10 +84,7 @@ public class Save {
 		}
 
 		FileOutputStream out = new FileOutputStream(saveTo);
-		out.write(getPoolString(cp, fp).getBytes(ENCODING));
-		out.write("\n".getBytes(ENCODING));
-		out.write(s.getBytes(ENCODING));
-		out.flush();
+		writeFile(s, cp, fp, out);
 		out.close();
 
 		return saveTo.getPath();
