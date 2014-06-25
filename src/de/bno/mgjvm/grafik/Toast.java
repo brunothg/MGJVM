@@ -20,7 +20,7 @@ public class Toast extends JDialog {
 	private Toast(String s) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setUndecorated(true);
-		setType(Type.POPUP);
+		// setType(Type.POPUP);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 		contentPane = getContentPane();
