@@ -68,7 +68,7 @@ public class Open {
 			ConstantPool cp, FieldPool fp) {
 		String ret = "";
 
-		String[] rows = gmjString.split("[\n\r\f]");
+		String[] rows = gmjString.split("[\n\r]");
 
 		boolean read = true;
 		for (int i = 0; i < rows.length; i++) {
