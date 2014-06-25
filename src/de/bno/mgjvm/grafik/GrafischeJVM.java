@@ -288,9 +288,15 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		// TODO: Execute finish
 		boolean execute;
 
-		do {
-			execute = jvm.execute();
-		} while (execute && jvm != null);
+		try {
+			do {
+				execute = jvm.execute();
+			} while (execute && jvm != null);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error line "
+					+ exInfFrame.getPC().getProgramCount(),
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@Override

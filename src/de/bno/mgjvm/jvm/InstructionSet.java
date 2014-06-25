@@ -85,7 +85,7 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
-			throw new JVMTypeException("isub wrong type on stack V1:" + v1
+			throw new JVMTypeException("imul wrong type on stack V1:" + v1
 					+ " V2:" + v2);
 		}
 		ret = Integer.valueOf(Value(v2)).intValue()
@@ -104,11 +104,27 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
-			throw new JVMTypeException("isub wrong type on stack V1:" + v1
+			throw new JVMTypeException("idiv wrong type on stack V1:" + v1
 					+ " V2:" + v2);
 		}
 		ret = Integer.valueOf(Value(v2)).intValue()
 				/ Integer.valueOf(Value(v1)).intValue();
+
+		return ret;
+	}
+
+	public static int execINEG(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("ineg wrong type on stack V1:" + v1);
+		}
+		ret = -Integer.valueOf(Value(v1)).intValue();
 
 		return ret;
 	}

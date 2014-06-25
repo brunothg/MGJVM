@@ -90,6 +90,8 @@ public class JVM {
 			stackFrame.push(execIDIV(stackFrame) + "I");
 		} else if (parts[0].startsWith("ldc")) {
 			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
+		} else if (parts[0].equals("ineg")) {
+			stackFrame.push(execINEG(stackFrame) + "I");
 		}
 
 	}
