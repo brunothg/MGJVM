@@ -29,4 +29,36 @@ public class Variable {
 		return this.isMutable;
 	}
 
+	public String TypeChar() {
+		String ret = null;
+
+		switch (type.toLowerCase()) {
+		case "short":
+			ret = "S";
+			break;
+		case "int":
+			ret = "I";
+			break;
+		case "long":
+			ret = "L";
+			break;
+		case "float":
+			ret = "F";
+			break;
+		case "double":
+			ret = "D";
+			break;
+		case "byte":
+			ret = "B";
+			break;
+		case "char":
+			ret = "C";
+			break;
+		default:
+			ret = type;
+			break;
+		}
+
+		return ret;
+	}
 }

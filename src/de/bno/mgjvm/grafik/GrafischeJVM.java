@@ -133,7 +133,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 
 	public void setActiveFile(File f) {
 		try {
-			String[] loadFile = Open.loadFile(f);
+			String[] loadFile = Open.loadFile(f, constantPool, fieldPool);
 			setTitle(fileName(loadFile[0]));
 
 			editor.setFile(loadFile[0], loadFile[1]);
@@ -156,8 +156,8 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	}
 
 	@Override
-	public String open() {
-		String ret = editor.open();
+	public String open(ConstantPool cp, FieldPool fp) {
+		String ret = editor.open(constantPool, fieldPool);
 		setTitle(fileName(ret));
 
 		return ret;
@@ -170,8 +170,8 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	}
 
 	@Override
-	public String save() {
-		String ret = editor.save();
+	public String save(ConstantPool cp, FieldPool fp) {
+		String ret = editor.save(constantPool, fieldPool);
 
 		if (ret != null) {
 			setTitle(fileName(ret));
@@ -181,8 +181,8 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 	}
 
 	@Override
-	public String saveAs() {
-		String ret = editor.saveAs();
+	public String saveAs(ConstantPool cp, FieldPool fp) {
+		String ret = editor.saveAs(constantPool, fieldPool);
 		setTitle(fileName(ret));
 
 		return ret;

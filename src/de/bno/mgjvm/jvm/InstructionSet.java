@@ -1,5 +1,7 @@
 package de.bno.mgjvm.jvm;
 
+import de.bno.mgjvm.data.Variable;
+import de.bno.mgjvm.grafik.ConstantPool;
 import de.bno.mgjvm.grafik.StackFrame;
 
 public class InstructionSet {
@@ -73,7 +75,61 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static int execIMUL(StackFrame sf) {
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
+			throw new JVMTypeException("isub wrong type on stack V1:" + v1
+					+ " V2:" + v2);
+		}
+		ret = Integer.valueOf(Value(v2)).intValue()
+				* Integer.valueOf(Value(v1)).intValue();
+
+		return ret;
+	}
+
+	public static int execIDIV(StackFrame sf) {
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
+			throw new JVMTypeException("isub wrong type on stack V1:" + v1
+					+ " V2:" + v2);
+		}
+		ret = Integer.valueOf(Value(v2)).intValue()
+				/ Integer.valueOf(Value(v1)).intValue();
+
+		return ret;
+	}
+
+	public static String execLDC(ConstantPool cp, int index) {
+
+		String ret = "";
+
+		if (index < 0 || index >= cp.getConstantCount()) {
+			throw new JVMParseException("Constant index out of bounds " + index
+					+ ". Max. is " + (cp.getConstantCount() - 1));
+		}
+
+		Variable constant = cp.getConstant(index);
+		ret = constant.getValue() + constant.TypeChar();
+
+		return ret;
+	}
+
 	private static String Value(String s) {
 		return s.substring(0, s.length() - 1);
 	}
+
 }

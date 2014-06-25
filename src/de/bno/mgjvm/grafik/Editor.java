@@ -227,9 +227,9 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	}
 
 	@Override
-	public String save() {
+	public String save(ConstantPool cp, FieldPool fp) {
 		try {
-			path = Save.save(textArea.getText(), path, textArea);
+			path = Save.save(textArea.getText(), cp, fp, path, textArea);
 
 			if (path != null) {
 				showSuccess("File saved");
@@ -246,9 +246,9 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	}
 
 	@Override
-	public String saveAs() {
+	public String saveAs(ConstantPool cp, FieldPool fp) {
 		try {
-			path = Save.saveAs(textArea.getText(), textArea);
+			path = Save.saveAs(textArea.getText(), cp, fp, textArea);
 
 			if (path != null) {
 				showSuccess("File saved");
@@ -283,9 +283,9 @@ public class Editor extends JPanel implements UnRedoListener, SaveListener,
 	}
 
 	@Override
-	public String open() {
+	public String open(ConstantPool cp, FieldPool fp) {
 		try {
-			String[] openStrings = Open.open(textArea);
+			String[] openStrings = Open.open(textArea, cp, fp);
 
 			if (openStrings != null) {
 				setFile(openStrings[0], openStrings[1]);

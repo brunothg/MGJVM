@@ -15,23 +15,29 @@ import java.nio.file.Paths;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import de.bno.mgjvm.grafik.ConstantPool;
+import de.bno.mgjvm.grafik.FieldPool;
+
 public class Save {
 
 	private static final String ENCODING = "UTF-8";
 
-	public static String save(String s, String path, Component parent)
-			throws UnsupportedEncodingException, IOException {
+	public static String save(String s, ConstantPool cp, FieldPool fp,
+			String path, Component parent) throws UnsupportedEncodingException,
+			IOException {
 		if (path == null || path.isEmpty()) {
-			return saveAs(s, parent);
+			return saveAs(s, cp, fp, parent);
 		}
 
 		Path file = Paths.get(path);
 
 		if (!Files.exists(file)) {
-			return saveAs(s, parent);
+			return saveAs(s, cp, fp, parent);
 		}
 
 		OutputStream out = Files.newOutputStream(file);
+		out.write((getPoolString(cp, fp)).getBytes(ENCODING));
+		out.write("\n===\n".getBytes(ENCODING));
 		out.write(s.getBytes(ENCODING));
 		out.flush();
 		out.close();
@@ -39,8 +45,32 @@ public class Save {
 		return path;
 	}
 
-	public static String saveAs(String s, Component parent)
-			throws UnsupportedEncodingException, IOException {
+	private static String getPoolString(ConstantPool cp, FieldPool fp) {
+		String ret = "";
+
+		if (cp != null) {
+
+			for (int i = 0; i < cp.getConstantCount(); i++) {
+				Variable constant = cp.getConstant(i);
+				ret += "const " + constant.getType().replaceAll(" ", "") + ":"
+						+ constant.getValue() + "\n";
+			}
+
+		}
+
+		if (fp != null) {
+			for (int i = 0; i < fp.getFieldCount(); i++) {
+				Variable constant = fp.getField(i);
+				ret += "field " + constant.getType().replaceAll(" ", "") + ":"
+						+ constant.getValue() + "\n";
+			}
+		}
+
+		return ret;
+	}
+
+	public static String saveAs(String s, ConstantPool cp, FieldPool fp,
+			Component parent) throws UnsupportedEncodingException, IOException {
 
 		File saveTo = getSaveFile("jvm_assembly.gmj", parent);
 
@@ -49,6 +79,8 @@ public class Save {
 		}
 
 		FileOutputStream out = new FileOutputStream(saveTo);
+		out.write(getPoolString(cp, fp).getBytes(ENCODING));
+		out.write("\n".getBytes(ENCODING));
 		out.write(s.getBytes(ENCODING));
 		out.flush();
 		out.close();

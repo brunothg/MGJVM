@@ -74,11 +74,11 @@ public class SaveBar extends JToolBar {
 
 				if (source == btnSave) {
 					if (saveListener != null) {
-						saveListener.save();
+						saveListener.save(null, null);
 					}
 				} else if (source == btnSaveAs) {
 					if (saveListener != null) {
-						saveListener.saveAs();
+						saveListener.saveAs(null, null);
 					}
 				} else if (source == btnPrint) {
 					if (saveListener != null) {

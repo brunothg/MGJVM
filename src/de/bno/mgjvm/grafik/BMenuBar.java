@@ -69,15 +69,15 @@ public class BMenuBar extends JMenuBar {
 
 				if (source == mniOpen) {
 					if (openListener != null) {
-						openListener.open();
+						openListener.open(null, null);
 					}
 				} else if (source == mniSave) {
 					if (saveListener != null) {
-						saveListener.save();
+						saveListener.save(null, null);
 					}
 				} else if (source == mniSaveAs) {
 					if (saveListener != null) {
-						saveListener.saveAs();
+						saveListener.saveAs(null, null);
 					}
 				} else if (source == mniPrint) {
 					if (saveListener != null) {

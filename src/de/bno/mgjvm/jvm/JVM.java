@@ -84,6 +84,12 @@ public class JVM {
 			stackFrame.push(execIADD(stackFrame) + "I");
 		} else if (parts[0].equals("isub")) {
 			stackFrame.push(execISUB(stackFrame) + "I");
+		} else if (parts[0].equals("imul")) {
+			stackFrame.push(execIMUL(stackFrame) + "I");
+		} else if (parts[0].equals("idiv")) {
+			stackFrame.push(execIDIV(stackFrame) + "I");
+		} else if (parts[0].startsWith("ldc")) {
+			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
 		}
 
 	}

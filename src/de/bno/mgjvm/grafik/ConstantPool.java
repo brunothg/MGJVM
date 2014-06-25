@@ -165,6 +165,10 @@ public class ConstantPool extends JPanel implements Pool<Variable> {
 		tableModel.addRow(new String[] { TYPES[0][0], TYPES[1][0] });
 	}
 
+	public void addLineToTable(String type, String value) {
+		tableModel.addRow(new String[] { type, value });
+	}
+
 	class TypeValueModel extends DefaultTableModel {
 
 		private static final long serialVersionUID = 6792727545456523046L;
