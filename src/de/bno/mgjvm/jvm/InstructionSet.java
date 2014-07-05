@@ -165,7 +165,7 @@ public class InstructionSet {
 			CallStack cs, ExecutionInformationFrame info, ProgramCounter pc,
 			Map<String, Integer> ft) {
 
-		cs.pushCallStack(callIndex);
+		cs.pushCallStack(callIndex + 1);
 
 		String funcId = callFunction.replaceAll(" ", "");
 		int funcEntry = ft.get(funcId);
