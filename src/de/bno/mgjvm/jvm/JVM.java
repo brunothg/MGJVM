@@ -5,6 +5,7 @@ import static de.bno.mgjvm.jvm.InstructionSet.execICONST_;
 import static de.bno.mgjvm.jvm.InstructionSet.execIDIV;
 import static de.bno.mgjvm.jvm.InstructionSet.execIMUL;
 import static de.bno.mgjvm.jvm.InstructionSet.execINEG;
+import static de.bno.mgjvm.jvm.InstructionSet.execINVOKEVIRTUAL;
 import static de.bno.mgjvm.jvm.InstructionSet.execISUB;
 import static de.bno.mgjvm.jvm.InstructionSet.execLDC;
 import static de.bno.mgjvm.jvm.InstructionSet.execRETURN;
@@ -104,6 +105,9 @@ public class JVM implements CallStack {
 			stackFrame.push(execINEG(stackFrame) + "I");
 		} else if (parts[0].equals("return")) {
 			execRETURN(pc, info, this);
+		} else if (parts[0].equals("invokevirtual")) {
+			execINVOKEVIRTUAL(index, stackFrame, parts[1], this, info, pc,
+					functionTable);
 		}
 
 	}
@@ -162,6 +166,7 @@ public class JVM implements CallStack {
 
 		int indexOfParamStart = func.indexOf('(');
 		int indexOfParamEnd = func.indexOf(')');
+		int indexOfLocalVars = func.indexOf(':');
 		int indexOfEnd = func.indexOf(';');
 
 		if (indexOfParamStart < 0 || indexOfParamEnd < 0 || indexOfEnd < 0) {
@@ -170,10 +175,15 @@ public class JVM implements CallStack {
 
 		if (indexOfParamEnd - indexOfParamStart == 1) {
 			ret = (func.substring(0, indexOfParamStart + 1) + "V" + func
-					.substring(indexOfParamEnd, indexOfEnd))
-					.replaceAll(" ", "");
+					.substring(
+							indexOfParamEnd,
+							(indexOfLocalVars > indexOfParamEnd) ? indexOfLocalVars
+									: indexOfEnd)).replaceAll(" ", "");
 		} else {
-			ret = func.substring(0, indexOfEnd).replaceAll(" ", "");
+			ret = func.substring(
+					0,
+					(indexOfLocalVars > indexOfParamEnd) ? indexOfLocalVars
+							: indexOfEnd).replaceAll(" ", "");
 		}
 
 		return ret;
