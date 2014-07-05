@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
-import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -229,7 +228,6 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		String program = editor.getText();
 
 		String[] lines = program.split("\r\n|[\n\r]");
-		System.out.println(Arrays.toString(lines));
 
 		jvm = new JVM(lines, exInfFrame.getPC(), constantPool, fieldPool,
 				exInfFrame);
