@@ -40,7 +40,7 @@ public class Variable {
 			ret = "I";
 			break;
 		case "long":
-			ret = "L";
+			ret = "J";
 			break;
 		case "float":
 			ret = "F";

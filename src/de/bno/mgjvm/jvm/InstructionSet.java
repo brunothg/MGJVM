@@ -1,5 +1,7 @@
 package de.bno.mgjvm.jvm;
 
+import java.util.Map;
+
 import de.bno.mgjvm.data.Variable;
 import de.bno.mgjvm.grafik.CallStack;
 import de.bno.mgjvm.grafik.ConstantPool;
@@ -8,6 +10,9 @@ import de.bno.mgjvm.grafik.ProgramCounter;
 import de.bno.mgjvm.grafik.StackFrame;
 
 public class InstructionSet {
+
+	private static final String DEF_EMPTY_LOCAL_VAR = "-";
+	private static final String typeValues = "IJSBCDF";
 
 	public static int execICONST_(String string) {
 		int value = 0;
@@ -153,6 +158,73 @@ public class InstructionSet {
 		if (pc.getProgramCount() > 0) {
 			info.popActiveStackFrame();
 		}
+	}
+
+	public static void execINVOKEVIRTUAL(int callIndex,
+			StackFrame callStackFrame, String callFunction, String[] prog,
+			CallStack cs, ExecutionInformationFrame info, ProgramCounter pc,
+			Map<String, Integer> ft) {
+
+		cs.pushCallStack(callIndex);
+
+		String funcId = callFunction.replaceAll(" ", "");
+		int funcEntry = ft.get(funcId);
+
+		pc.setProgramCount(funcEntry + 1);
+
+		String funcDecl = prog[funcEntry].replaceAll(" ", "");
+
+		int beginIndex = funcDecl.indexOf(':') + 1;
+		int endIndex = funcDecl.indexOf(';');
+		int localVars = ((beginIndex > 0) ? Integer.valueOf(
+				funcDecl.substring(beginIndex, endIndex)).intValue() : 0) + 1;
+
+		String[] vars = new String[localVars];
+		vars[0] = "this";
+
+		int paramCount = getParamCount(funcDecl);
+
+		String params = getParamString(funcDecl);
+
+		for (int i = 1; i < paramCount + 1; i++) {
+			vars[i] = callStackFrame.pop();
+
+			char typeChar = vars[i].charAt(vars[i].length() - 1);
+			if (typeChar != params.charAt(i - 1)) {
+				throw new JVMTypeException("Found wrong type: "
+						+ params.charAt(i - 1) + " expected but found "
+						+ typeChar);
+			}
+		}
+
+		for (int i = 1 + paramCount; i < vars.length; i++) {
+			vars[i] = DEF_EMPTY_LOCAL_VAR;
+		}
+
+		info.createNewStackFrame(vars);
+	}
+
+	private static String getParamString(String funcDecl) {
+		int beginIndex = funcDecl.indexOf('(') + 1;
+		int endIndex = funcDecl.indexOf(')');
+		String params = funcDecl.substring(beginIndex, endIndex);
+
+		return params;
+	}
+
+	private static int getParamCount(String funcDecl) {
+
+		int ret = 0;
+
+		String params = getParamString(funcDecl);
+
+		for (int i = 0; i < params.length(); i++) {
+			if (typeValues.indexOf(params.charAt(i)) >= 0) {
+				ret++;
+			}
+		}
+
+		return ret;
 	}
 
 	private static String Value(String s) {

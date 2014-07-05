@@ -106,8 +106,8 @@ public class JVM implements CallStack {
 		} else if (parts[0].equals("return")) {
 			execRETURN(pc, info, this);
 		} else if (parts[0].equals("invokevirtual")) {
-			execINVOKEVIRTUAL(index, stackFrame, parts[1], this, info, pc,
-					functionTable);
+			execINVOKEVIRTUAL(index, stackFrame, parts[1], prog, this, info,
+					pc, functionTable);
 		}
 
 	}
