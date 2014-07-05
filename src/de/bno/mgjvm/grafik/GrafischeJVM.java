@@ -227,7 +227,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 
 		String program = editor.getText();
 
-		String[] lines = program.split("[\n\r]");
+		String[] lines = program.split("[\n\r]+");
 
 		jvm = new JVM(lines, exInfFrame.getPC(), constantPool, fieldPool,
 				exInfFrame);
