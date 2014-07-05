@@ -1,7 +1,10 @@
 package de.bno.mgjvm.jvm;
 
 import de.bno.mgjvm.data.Variable;
+import de.bno.mgjvm.grafik.CallStack;
 import de.bno.mgjvm.grafik.ConstantPool;
+import de.bno.mgjvm.grafik.ExecutionInformationFrame;
+import de.bno.mgjvm.grafik.ProgramCounter;
 import de.bno.mgjvm.grafik.StackFrame;
 
 public class InstructionSet {
@@ -142,6 +145,14 @@ public class InstructionSet {
 		ret = constant.getValue() + constant.TypeChar();
 
 		return ret;
+	}
+
+	public static void execRETURN(ProgramCounter pc,
+			ExecutionInformationFrame info, CallStack cs) {
+		pc.setProgramCount(cs.popCallStack());
+		if (pc.getProgramCount() > 0) {
+			info.popActiveStackFrame();
+		}
 	}
 
 	private static String Value(String s) {

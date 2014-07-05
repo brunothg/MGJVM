@@ -1,17 +1,26 @@
 package de.bno.mgjvm.jvm;
 
-import static de.bno.mgjvm.jvm.InstructionSet.*;
+import static de.bno.mgjvm.jvm.InstructionSet.execIADD;
+import static de.bno.mgjvm.jvm.InstructionSet.execICONST_;
+import static de.bno.mgjvm.jvm.InstructionSet.execIDIV;
+import static de.bno.mgjvm.jvm.InstructionSet.execIMUL;
+import static de.bno.mgjvm.jvm.InstructionSet.execINEG;
+import static de.bno.mgjvm.jvm.InstructionSet.execISUB;
+import static de.bno.mgjvm.jvm.InstructionSet.execLDC;
+import static de.bno.mgjvm.jvm.InstructionSet.execRETURN;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
+import de.bno.mgjvm.grafik.CallStack;
 import de.bno.mgjvm.grafik.ConstantPool;
 import de.bno.mgjvm.grafik.ExecutionInformationFrame;
 import de.bno.mgjvm.grafik.FieldPool;
 import de.bno.mgjvm.grafik.ProgramCounter;
 import de.bno.mgjvm.grafik.StackFrame;
 
-public class JVM {
+public class JVM implements CallStack {
 
 	private String[] prog;
 	private ProgramCounter pc;
@@ -22,6 +31,7 @@ public class JVM {
 	private boolean deleted;
 
 	private Map<String, Integer> functionTable;
+	private LinkedList<Integer> callStack;
 
 	private JVMListener jvmListener;
 
@@ -33,6 +43,7 @@ public class JVM {
 		this.fp = fp;
 		this.info = info;
 		this.functionTable = new HashMap<String, Integer>(30, 0.6f);
+		this.callStack = new LinkedList<Integer>();
 
 		createFunctionTable();
 		if (!functionTable.containsKey("<init>(V)V")) {
@@ -59,7 +70,7 @@ public class JVM {
 
 		int cmdIndex = getNextCmd();
 
-		if (cmdIndex == 0) {
+		if (cmdIndex <= 0) {
 			delete();
 		} else {
 			pc.setProgramCount(cmdIndex + 1);
@@ -78,8 +89,7 @@ public class JVM {
 		StackFrame stackFrame = info.peekActiveStackFrame();
 
 		if (parts[0].startsWith("iconst_")) {
-			int addConst = execICONST_(parts[0]);
-			stackFrame.push(addConst + "I");
+			stackFrame.push(execICONST_(parts[0]) + "I");
 		} else if (parts[0].equals("iadd")) {
 			stackFrame.push(execIADD(stackFrame) + "I");
 		} else if (parts[0].equals("isub")) {
@@ -92,12 +102,18 @@ public class JVM {
 			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
 		} else if (parts[0].equals("ineg")) {
 			stackFrame.push(execINEG(stackFrame) + "I");
+		} else if (parts[0].equals("return")) {
+			execRETURN(pc, info, this);
 		}
 
 	}
 
 	private int getNextCmd() {
 		int ret = 0;
+
+		if (pc.getProgramCount() < 0) {
+			return ret;
+		}
 
 		for (int i = pc.getProgramCount(); i < prog.length; i++) {
 			if (prog[i] != null && !prog[i].isEmpty() && !isComment(prog[i])) {
@@ -112,8 +128,8 @@ public class JVM {
 	private int goToEntry() {
 		int entryIndex = functionTable.get("<init>(V)V") + 1;
 
-		while (prog[entryIndex] == null || prog[entryIndex].isEmpty()
-				|| isComment(prog[entryIndex])) {
+		while ((prog[entryIndex] == null || prog[entryIndex].isEmpty() || isComment(prog[entryIndex]))
+				&& (entryIndex < prog.length)) {
 			entryIndex++;
 		}
 
@@ -161,6 +177,24 @@ public class JVM {
 		}
 
 		return ret;
+	}
+
+	public int popCallStack() {
+
+		if (callStack.isEmpty()) {
+			return -1;
+		}
+
+		int ret = callStack.getLast().intValue();
+		callStack.removeLast();
+
+		return ret;
+	}
+
+	public void pushCallStack(int i) {
+		if (i >= 0) {
+			callStack.add(new Integer(i));
+		}
 	}
 
 	public void delete() {
