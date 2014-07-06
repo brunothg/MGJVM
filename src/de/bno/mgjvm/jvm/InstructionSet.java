@@ -165,6 +165,35 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static void execISTORE_(StackFrame sf, String istore) {
+
+		int index = Integer(istore.substring(istore.indexOf('_') + 1));
+
+		if (index < 0 || index > 3) {
+			throw new JVMParseException(istore + " unknown");
+		}
+
+		execISTORE(sf, index);
+	}
+
+	public static void execISTORE(StackFrame sf, int index) {
+
+		String v1;
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("istore wrong type on stack: " + v1);
+		}
+
+		sf.setField(v1, index);
+	}
+
 	public static void execIRETURN(StackFrame sf, ExecutionInformationFrame eif) {
 
 		eif.popActiveStackFrame();

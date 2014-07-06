@@ -86,6 +86,12 @@ public class StackFrame extends JPanel {
 		container.add(lblNew);
 	}
 
+	public void setField(String s, int index) {
+		fields.set(index, s);
+		((JLabel) container.getComponent(container.getComponentCount()
+				+ (index - fields.size()))).setText(s);
+	}
+
 	public String getField(int index) {
 		return fields.get(index);
 	}
