@@ -14,6 +14,12 @@ Supported Commands:
 		isub
 		imul
 		idiv
+		iload_0
+		iload_1
+		iload_2
+		iload_3
+		iload <index>
+		ireturn
 		ldc <index>
 		invokevirtual <function>
 
