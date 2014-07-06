@@ -11,6 +11,7 @@ import de.bno.mgjvm.grafik.StackFrame;
 
 public class InstructionSet {
 
+	private static final int INTEGER_DEF = 0;
 	private static final String DEF_EMPTY_LOCAL_VAR = "-";
 	private static final String typeValues = "IJSBCDF";
 
@@ -156,6 +157,10 @@ public class InstructionSet {
 		}
 
 		v1 = sf.getField(index);
+
+		if (v1.equals(DEF_EMPTY_LOCAL_VAR)) {
+			return INTEGER_DEF;
+		}
 
 		if (!(v1.endsWith("I"))) {
 			throw new JVMTypeException("iload wrong type on stack: " + v1);
