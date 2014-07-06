@@ -56,7 +56,7 @@ public class ExecutionInformationFrame extends JFrame {
 		setAutoRequestFocus(false);
 		setTitle("MGJVM");
 		setIconImage(InternalImage.load("MGJVM.png"));
-		setType(Type.UTILITY);
+		// setType(Type.UTILITY);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tmpDefCloseOp = getDefaultCloseOperation();
 		setBounds(100, 100, 450, 300);
