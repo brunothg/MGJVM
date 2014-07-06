@@ -287,7 +287,7 @@ public class InstructionSet {
 
 		String params = getParamString(funcDecl);
 
-		for (int i = 1; i < paramCount + 1; i++) {
+		for (int i = paramCount; i > 0; i--) {
 			vars[i] = callStackFrame.pop();
 
 			char typeChar = vars[i].charAt(vars[i].length() - 1);
