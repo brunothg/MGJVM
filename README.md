@@ -26,6 +26,7 @@ Supported Commands:
 		istore <index>
 		i2b
 		bipush
+		dup
 		ireturn
 		ldc <index>
 		invokevirtual <function>
