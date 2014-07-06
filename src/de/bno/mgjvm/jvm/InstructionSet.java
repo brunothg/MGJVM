@@ -165,6 +165,25 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static void execIRETURN(StackFrame sf, ExecutionInformationFrame eif) {
+
+		eif.popActiveStackFrame();
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("ireturn wrong type on stack V1: " + v1);
+		}
+		ret = Integer(Value(v1));
+
+		StackFrame stackFrame = eif.peekActiveStackFrame();
+		stackFrame.push(ret + "I");
+	}
+
 	public static String execLDC(ConstantPool cp, int index) {
 
 		String ret = "";

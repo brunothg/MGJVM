@@ -1,17 +1,6 @@
 package de.bno.mgjvm.jvm;
 
-import static de.bno.mgjvm.jvm.InstructionSet.Integer;
-import static de.bno.mgjvm.jvm.InstructionSet.execIADD;
-import static de.bno.mgjvm.jvm.InstructionSet.execICONST_;
-import static de.bno.mgjvm.jvm.InstructionSet.execIDIV;
-import static de.bno.mgjvm.jvm.InstructionSet.execILOAD;
-import static de.bno.mgjvm.jvm.InstructionSet.execILOAD_;
-import static de.bno.mgjvm.jvm.InstructionSet.execIMUL;
-import static de.bno.mgjvm.jvm.InstructionSet.execINEG;
-import static de.bno.mgjvm.jvm.InstructionSet.execINVOKEVIRTUAL;
-import static de.bno.mgjvm.jvm.InstructionSet.execISUB;
-import static de.bno.mgjvm.jvm.InstructionSet.execLDC;
-import static de.bno.mgjvm.jvm.InstructionSet.execRETURN;
+import static de.bno.mgjvm.jvm.InstructionSet.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -106,6 +95,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execINEG(stackFrame) + "I");
 		} else if (parts[0].equals("iload")) {
 			stackFrame.push(execILOAD(stackFrame, Integer(parts[1])) + "I");
+		} else if (parts[0].equals("ireturn")) {
+			execIRETURN(stackFrame, info);
 		} else if (parts[0].startsWith("iload_")) {
 			stackFrame.push(execILOAD_(stackFrame, parts[0]) + "I");
 		} else if (parts[0].startsWith("ldc")) {

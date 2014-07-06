@@ -230,6 +230,7 @@ public class ExecutionInformationFrame extends JFrame {
 		StackFrame ret = peekActiveStackFrame();
 
 		if (ret != null) {
+			stackframes.removeLast();
 			panel_1.remove(ret.getParent());
 			panel_1.revalidate();
 		}
