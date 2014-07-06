@@ -1,8 +1,11 @@
 package de.bno.mgjvm.jvm;
 
+import static de.bno.mgjvm.jvm.InstructionSet.Integer;
 import static de.bno.mgjvm.jvm.InstructionSet.execIADD;
 import static de.bno.mgjvm.jvm.InstructionSet.execICONST_;
 import static de.bno.mgjvm.jvm.InstructionSet.execIDIV;
+import static de.bno.mgjvm.jvm.InstructionSet.execILOAD;
+import static de.bno.mgjvm.jvm.InstructionSet.execILOAD_;
 import static de.bno.mgjvm.jvm.InstructionSet.execIMUL;
 import static de.bno.mgjvm.jvm.InstructionSet.execINEG;
 import static de.bno.mgjvm.jvm.InstructionSet.execINVOKEVIRTUAL;
@@ -99,10 +102,14 @@ public class JVM implements CallStack {
 			stackFrame.push(execIMUL(stackFrame) + "I");
 		} else if (parts[0].equals("idiv")) {
 			stackFrame.push(execIDIV(stackFrame) + "I");
-		} else if (parts[0].startsWith("ldc")) {
-			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
 		} else if (parts[0].equals("ineg")) {
 			stackFrame.push(execINEG(stackFrame) + "I");
+		} else if (parts[0].equals("iload")) {
+			stackFrame.push(execILOAD(stackFrame, Integer(parts[1])) + "I");
+		} else if (parts[0].startsWith("iload_")) {
+			stackFrame.push(execILOAD_(stackFrame, parts[0]) + "I");
+		} else if (parts[0].startsWith("ldc")) {
+			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
 		} else if (parts[0].equals("return")) {
 			execRETURN(pc, info, this);
 		} else if (parts[0].equals("invokevirtual")) {

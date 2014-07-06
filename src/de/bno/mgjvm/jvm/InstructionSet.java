@@ -58,8 +58,7 @@ public class InstructionSet {
 			throw new JVMTypeException("iadd wrong type on stack V1:" + v1
 					+ " V2:" + v2);
 		}
-		ret = Integer.valueOf(Value(v1)).intValue()
-				+ Integer.valueOf(Value(v2)).intValue();
+		ret = Integer(Value(v1)) + Integer(Value(v2));
 
 		return ret;
 	}
@@ -77,8 +76,7 @@ public class InstructionSet {
 			throw new JVMTypeException("isub wrong type on stack V1:" + v1
 					+ " V2:" + v2);
 		}
-		ret = Integer.valueOf(Value(v2)).intValue()
-				- Integer.valueOf(Value(v1)).intValue();
+		ret = Integer(Value(v2)) - Integer(Value(v1));
 
 		return ret;
 	}
@@ -96,8 +94,7 @@ public class InstructionSet {
 			throw new JVMTypeException("imul wrong type on stack V1:" + v1
 					+ " V2:" + v2);
 		}
-		ret = Integer.valueOf(Value(v2)).intValue()
-				* Integer.valueOf(Value(v1)).intValue();
+		ret = Integer(Value(v2)) * Integer(Value(v1));
 
 		return ret;
 	}
@@ -115,8 +112,7 @@ public class InstructionSet {
 			throw new JVMTypeException("idiv wrong type on stack V1:" + v1
 					+ " V2:" + v2);
 		}
-		ret = Integer.valueOf(Value(v2)).intValue()
-				/ Integer.valueOf(Value(v1)).intValue();
+		ret = Integer(Value(v2)) / Integer(Value(v1));
 
 		return ret;
 	}
@@ -130,9 +126,41 @@ public class InstructionSet {
 		v1 = sf.pop();
 
 		if (!(v1.endsWith("I"))) {
-			throw new JVMTypeException("ineg wrong type on stack V1:" + v1);
+			throw new JVMTypeException("ineg wrong type on stack V1: " + v1);
 		}
-		ret = -Integer.valueOf(Value(v1)).intValue();
+		ret = -Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static int execILOAD_(StackFrame sf, String iload) {
+
+		int index = Integer(iload.substring(iload.indexOf('_') + 1));
+
+		if (index < 0 || index > 3) {
+			throw new JVMParseException(iload + " unknown");
+		}
+
+		return execILOAD(sf, index);
+	}
+
+	public static int execILOAD(StackFrame sf, int index) {
+
+		int ret;
+
+		String v1;
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		v1 = sf.getField(index);
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("iload wrong type on stack: " + v1);
+		}
+		ret = Integer(Value(v1));
 
 		return ret;
 	}
@@ -228,7 +256,11 @@ public class InstructionSet {
 	}
 
 	private static String Value(String s) {
-		return s.substring(0, s.length() - 1);
+		return s.trim().substring(0, s.length() - 1);
+	}
+
+	public static int Integer(String s) {
+		return Integer.valueOf(s).intValue();
 	}
 
 }
