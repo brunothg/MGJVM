@@ -234,6 +234,40 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static int execI2C(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("i2c wrong type on stack V1: " + v1);
+		}
+		ret = (int) ((char) Integer(Value(v1)));
+
+		return ret;
+	}
+
+	public static void execIINC(StackFrame sf, int index, byte add) {
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		String v1 = sf.getField(index);
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("iinc wrong type on stack V1: " + v1);
+		}
+
+		int ret = Integer(Value(v1)) + (int) add;
+
+		sf.setField(ret + "I", index);
+	}
+
 	public static int execBIPUSH(byte value) {
 		return (int) value;
 	}

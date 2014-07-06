@@ -25,6 +25,7 @@ Supported Commands:
 		istore_3
 		istore <index>
 		i2b
+		iinc <index> <byte value>
 		bipush
 		dup
 		ireturn
