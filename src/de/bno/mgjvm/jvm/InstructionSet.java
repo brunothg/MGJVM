@@ -253,6 +253,13 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static void execDUP(StackFrame sf) {
+
+		String v1 = sf.peek();
+
+		sf.push(v1);
+	}
+
 	public static void execRETURN(ProgramCounter pc,
 			ExecutionInformationFrame info, CallStack cs) {
 		pc.setProgramCount(cs.popCallStack());
