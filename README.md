@@ -19,6 +19,11 @@ Supported Commands:
 		iload_2
 		iload_3
 		iload <index>
+		istore_0
+		istore_1
+		istore_2
+		istore_3
+		istore <index>
 		ireturn
 		ldc <index>
 		invokevirtual <function>
