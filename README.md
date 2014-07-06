@@ -24,6 +24,8 @@ Supported Commands:
 		istore_2
 		istore_3
 		istore <index>
+		i2b
+		bipush
 		ireturn
 		ldc <index>
 		invokevirtual <function>
