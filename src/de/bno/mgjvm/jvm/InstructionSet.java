@@ -218,6 +218,26 @@ public class InstructionSet {
 		stackFrame.push(ret + "I");
 	}
 
+	public static int execI2B(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("i2b wrong type on stack V1: " + v1);
+		}
+		ret = (int) ((byte) Integer(Value(v1)));
+
+		return ret;
+	}
+
+	public static int execBIPUSH(byte value) {
+		return (int) value;
+	}
+
 	public static String execLDC(ConstantPool cp, int index) {
 
 		String ret = "";
@@ -314,6 +334,10 @@ public class InstructionSet {
 
 	public static int Integer(String s) {
 		return Integer.valueOf(s).intValue();
+	}
+
+	public static byte Byte(String s) {
+		return Byte.valueOf(s).byteValue();
 	}
 
 }

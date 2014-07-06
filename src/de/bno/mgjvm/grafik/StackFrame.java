@@ -72,6 +72,7 @@ public class StackFrame extends JPanel {
 		if (topComponent != seperator) {
 			container.remove(0);
 			container.revalidate();
+			container.repaint();
 		}
 
 		return peek;

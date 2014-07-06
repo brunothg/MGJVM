@@ -103,6 +103,10 @@ public class JVM implements CallStack {
 			execISTORE(stackFrame, Integer(parts[1]));
 		} else if (parts[0].equals("ireturn")) {
 			execIRETURN(stackFrame, info);
+		} else if (parts[0].equals("i2b")) {
+			stackFrame.push(execI2B(stackFrame) + "I");
+		} else if (parts[0].equals("bipush")) {
+			stackFrame.push(execBIPUSH(Byte(parts[1])) + "I");
 		} else if (parts[0].startsWith("ldc")) {
 			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
 		} else if (parts[0].equals("return")) {
