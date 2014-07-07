@@ -272,6 +272,51 @@ public class InstructionSet {
 		return (int) value;
 	}
 
+	public static void execGOTO(int line, String[] prog, ProgramCounter pc) {
+
+		if (line < 1 || line > prog.length) {
+			throw new JVMParseException("goto " + line + " out of bounds.");
+		}
+
+		int search = 0;
+
+		if (line > pc.getProgramCount()) {
+			search = 1;
+		} else if (line < pc.getProgramCount()) {
+			search = -1;
+		}
+
+		if (search == 0) {
+			return;
+		}
+
+		boolean border = false;
+		for (int i = pc.getProgramCount() - 1; i >= 0 && i < prog.length
+				&& i != line - 1; i += search) {
+
+			if (border) {
+				throw new JVMParseException(
+						"goto try to leave function. not allowed.");
+			}
+
+			String aclL = prog[i];
+
+			if (!isComment(aclL)) {
+				if (isReturn(aclL) || isFunctionDeclaration(aclL)) {
+					border = true;
+				}
+			}
+		}
+
+		pc.setProgramCount(line - 1);
+
+	}
+
+	private static boolean isFunctionDeclaration(String aclL) {
+
+		return aclL.trim().endsWith(";");
+	}
+
 	public static String execLDC(ConstantPool cp, int index) {
 
 		String ret = "";
@@ -371,6 +416,14 @@ public class InstructionSet {
 
 	private static String Value(String s) {
 		return s.trim().substring(0, s.length() - 1);
+	}
+
+	private static boolean isComment(String aclL) {
+		return aclL.trim().startsWith("//");
+	}
+
+	private static boolean isReturn(String aclL) {
+		return aclL.trim().endsWith("return");
 	}
 
 	public static int Integer(String s) {

@@ -113,6 +113,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execBIPUSH(Byte(parts[1])) + "I");
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
+		} else if (parts[0].equals("goto")) {
+			execGOTO(Integer(parts[1]), prog, pc);
 		} else if (parts[0].startsWith("ldc")) {
 			stackFrame.push(execLDC(cp, Integer.valueOf(parts[1])));
 		} else if (parts[0].equals("return")) {
