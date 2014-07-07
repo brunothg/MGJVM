@@ -302,8 +302,11 @@ public class InstructionSet {
 			String aclL = prog[i];
 
 			if (!isComment(aclL)) {
-				if (isReturn(aclL) || isFunctionDeclaration(aclL)) {
+				if (isReturn(aclL)) {
 					border = true;
+				} else if (isFunctionDeclaration(aclL)) {
+					throw new JVMParseException(
+							"goto try to leave function. not allowed.");
 				}
 			}
 		}
