@@ -29,6 +29,7 @@ Supported Commands:
 		bipush
 		dup
 		ireturn
+		goto <line number>
 		ldc <index>
 		invokevirtual <function>
 
