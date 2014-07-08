@@ -91,6 +91,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execIMUL(stackFrame) + "I");
 		} else if (parts[0].equals("idiv")) {
 			stackFrame.push(execIDIV(stackFrame) + "I");
+		} else if (parts[0].equals("iand")) {
+			stackFrame.push(execIAND(stackFrame) + "I");
 		} else if (parts[0].equals("ineg")) {
 			stackFrame.push(execINEG(stackFrame) + "I");
 		} else if (parts[0].equals("iload")) {

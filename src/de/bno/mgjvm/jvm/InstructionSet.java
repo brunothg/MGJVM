@@ -113,10 +113,28 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
-			throw new JVMTypeException("idiv wrong type on stack V1:" + v1
-					+ " V2:" + v2);
+			throw new JVMTypeException("idiv wrong type on stack V1:" + v2
+					+ " V2:" + v1);
 		}
 		ret = Integer(Value(v2)) / Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static int execIAND(StackFrame sf) {
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
+			throw new JVMTypeException("idiv wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Integer(Value(v2)) & Integer(Value(v1));
 
 		return ret;
 	}
