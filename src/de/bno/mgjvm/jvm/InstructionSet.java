@@ -16,11 +16,14 @@ public class InstructionSet {
 	private static final String typeValues = "IJSBCDF";
 
 	public static int execICONST_(String string) {
-		int value = 0;
+		int value = -2;
 
 		switch (string.substring(string.indexOf('_') + 1)) {
 		case "m1":
 			value = -1;
+			break;
+		case "0":
+			value = 0;
 			break;
 		case "1":
 			value = 1;
@@ -39,7 +42,7 @@ public class InstructionSet {
 			break;
 		}
 
-		if (value == 0) {
+		if (value == -2) {
 			throw new JVMParseException(string + " unknown");
 		}
 
@@ -336,6 +339,50 @@ public class InstructionSet {
 		sf.setField(ret + "I", index);
 	}
 
+	public static void execIF_ICMP(String cond, int line, String[] prog,
+			ProgramCounter pc, StackFrame sf) {
+
+		boolean branch = false;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
+			throw new JVMTypeException("if_icmp" + cond
+					+ " wrong type on stack V1:" + v2 + " V2:" + v1);
+		}
+
+		switch (cond) {
+		case "eq":
+			branch = Integer(Value(v2)) == Integer(Value(v1));
+			break;
+		case "ne":
+			branch = Integer(Value(v2)) != Integer(Value(v1));
+			break;
+		case "lt":
+			branch = Integer(Value(v2)) < Integer(Value(v1));
+			break;
+		case "le":
+			branch = Integer(Value(v2)) <= Integer(Value(v1));
+			break;
+		case "gt":
+			branch = Integer(Value(v2)) > Integer(Value(v1));
+			break;
+		case "ge":
+			branch = Integer(Value(v2)) >= Integer(Value(v1));
+			break;
+		default:
+			throw new JVMParseException("if_icmp<cond> unknown cond: " + cond);
+		}
+
+		if (branch) {
+			execGOTO(line, prog, pc);
+		}
+
+	}
+
 	public static int execBIPUSH(byte value) {
 		return (int) value;
 	}
@@ -358,21 +405,13 @@ public class InstructionSet {
 			return;
 		}
 
-		boolean border = false;
 		for (int i = pc.getProgramCount() - 1; i >= 0 && i < prog.length
 				&& i != line - 1; i += search) {
-
-			if (border) {
-				throw new JVMParseException(
-						"goto try to leave function. not allowed.");
-			}
 
 			String aclL = prog[i];
 
 			if (!isComment(aclL)) {
-				if (isReturn(aclL)) {
-					border = true;
-				} else if (isFunctionDeclaration(aclL)) {
+				if (isFunctionDeclaration(aclL)) {
 					throw new JVMParseException(
 							"goto try to leave function. not allowed.");
 				}

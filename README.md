@@ -30,6 +30,7 @@ Supported Commands:
 		i2f
 		i2l
 		i2s
+		if_icmp<cond> <line number>
 		iinc <index> <byte value>
 		bipush
 		dup
@@ -43,6 +44,8 @@ Supported Commands:
 		
 <function>:
 		function name, e.g. func1(V), func2(IJ)D, name(parameter types)return type
+<cond>:
+		condition: eq(equals), ne(not equal), lt(lower than), ge(greater equal), gt(greater than), le(lower equal)
 
 
 
