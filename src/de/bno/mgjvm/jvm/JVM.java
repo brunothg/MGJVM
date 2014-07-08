@@ -107,6 +107,14 @@ public class JVM implements CallStack {
 			stackFrame.push(execI2B(stackFrame) + "I");
 		} else if (parts[0].equals("i2c")) {
 			stackFrame.push(execI2C(stackFrame) + "I");
+		} else if (parts[0].equals("i2d")) {
+			stackFrame.push(execI2D(stackFrame) + "D");
+		} else if (parts[0].equals("i2f")) {
+			stackFrame.push(execI2F(stackFrame) + "F");
+		} else if (parts[0].equals("i2l")) {
+			stackFrame.push(execI2L(stackFrame) + "J");
+		} else if (parts[0].equals("i2s")) {
+			stackFrame.push(execI2S(stackFrame) + "I");
 		} else if (parts[0].equals("iinc")) {
 			execIINC(stackFrame, Integer(parts[1]), Byte(parts[2]));
 		} else if (parts[0].equals("bipush")) {

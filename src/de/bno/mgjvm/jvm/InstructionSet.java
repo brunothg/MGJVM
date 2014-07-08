@@ -56,8 +56,8 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
-			throw new JVMTypeException("iadd wrong type on stack V1:" + v1
-					+ " V2:" + v2);
+			throw new JVMTypeException("iadd wrong type on stack V1:" + v2
+					+ " V2:" + v1);
 		}
 		ret = Integer(Value(v1)) + Integer(Value(v2));
 
@@ -74,8 +74,8 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
-			throw new JVMTypeException("isub wrong type on stack V1:" + v1
-					+ " V2:" + v2);
+			throw new JVMTypeException("isub wrong type on stack V1:" + v2
+					+ " V2:" + v1);
 		}
 		ret = Integer(Value(v2)) - Integer(Value(v1));
 
@@ -92,8 +92,8 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
-			throw new JVMTypeException("imul wrong type on stack V1:" + v1
-					+ " V2:" + v2);
+			throw new JVMTypeException("imul wrong type on stack V1:" + v2
+					+ " V2:" + v1);
 		}
 		ret = Integer(Value(v2)) * Integer(Value(v1));
 
@@ -246,6 +246,74 @@ public class InstructionSet {
 			throw new JVMTypeException("i2c wrong type on stack V1: " + v1);
 		}
 		ret = (int) ((char) Integer(Value(v1)));
+
+		return ret;
+	}
+
+	public static double execI2D(StackFrame sf) {
+
+		double ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("i2c wrong type on stack V1: " + v1);
+		}
+
+		ret = (double) Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static float execI2F(StackFrame sf) {
+
+		float ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("i2c wrong type on stack V1: " + v1);
+		}
+
+		ret = (float) Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static long execI2L(StackFrame sf) {
+
+		long ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("i2c wrong type on stack V1: " + v1);
+		}
+
+		ret = (long) Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static int execI2S(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("i2c wrong type on stack V1: " + v1);
+		}
+
+		ret = (int) ((short) Integer(Value(v1)));
 
 		return ret;
 	}

@@ -25,6 +25,11 @@ Supported Commands:
 		istore_3
 		istore <index>
 		i2b
+		i2c
+		i2d
+		i2f
+		i2l
+		i2s
 		iinc <index> <byte value>
 		bipush
 		dup
