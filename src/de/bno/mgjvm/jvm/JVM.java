@@ -120,6 +120,9 @@ public class JVM implements CallStack {
 		} else if (parts[0].startsWith("if_icmp")) {
 			execIF_ICMP(parts[0].substring(7), Integer(parts[1]), prog, pc,
 					stackFrame);
+		} else if (parts[0].startsWith("if")) {
+			execIF(parts[0].substring(2), Integer(parts[1]), prog, pc,
+					stackFrame);
 		} else if (parts[0].equals("bipush")) {
 			stackFrame.push(execBIPUSH(Byte(parts[1])) + "I");
 		} else if (parts[0].equals("dup")) {

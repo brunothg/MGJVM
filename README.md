@@ -31,6 +31,7 @@ Supported Commands:
 		i2l
 		i2s
 		if_icmp<cond> <line number>
+		if<cond> <line number>
 		iinc <index> <byte value>
 		bipush
 		dup

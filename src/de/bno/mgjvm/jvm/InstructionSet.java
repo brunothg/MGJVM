@@ -386,6 +386,48 @@ public class InstructionSet {
 
 	}
 
+	public static void execIF(String cond, int line, String[] prog,
+			ProgramCounter pc, StackFrame sf) {
+
+		boolean branch = false;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("I"))) {
+			throw new JVMTypeException("if" + cond + " wrong type on stack V1:"
+					+ v1);
+		}
+
+		switch (cond) {
+		case "eq":
+			branch = Integer(Value(v1)) == 0;
+			break;
+		case "ne":
+			branch = Integer(Value(v1)) != 0;
+			break;
+		case "lt":
+			branch = Integer(Value(v1)) < 0;
+			break;
+		case "le":
+			branch = Integer(Value(v1)) <= 0;
+			break;
+		case "gt":
+			branch = Integer(Value(v1)) > 0;
+			break;
+		case "ge":
+			branch = Integer(Value(v1)) >= 0;
+			break;
+		default:
+			throw new JVMParseException("if<cond> unknown cond: " + cond);
+		}
+
+		if (branch) {
+			execGOTO(line, prog, pc);
+		}
+	}
+
 	public static int execBIPUSH(byte value) {
 		return (int) value;
 	}
