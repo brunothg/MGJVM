@@ -17,6 +17,8 @@ Supported Commands:
 		iand
 		ior
 		ixor
+		irem
+		ishl
 		iload_0
 		iload_1
 		iload_2

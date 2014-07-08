@@ -175,6 +175,48 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static int execIREM(StackFrame sf) {
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
+			throw new JVMTypeException("irem wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+
+		int iv2 = Integer(Value(v2));
+		int iv1 = Integer(Value(v1));
+		ret = iv2 - (iv2 / iv1) * iv1;
+
+		return ret;
+	}
+
+	public static int execISHL(StackFrame sf) {
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("I"))) {
+			throw new JVMTypeException("ishl wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+
+		int iv2 = Integer(Value(v2));
+		int iv1 = Integer(Value(v1));
+		ret = iv2 << (iv1 & 0x1f);
+
+		return ret;
+	}
+
 	public static int execINEG(StackFrame sf) {
 
 		int ret;
