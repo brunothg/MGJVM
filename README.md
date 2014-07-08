@@ -14,6 +14,7 @@ Supported Commands:
 		isub
 		imul
 		idiv
+		iand
 		iload_0
 		iload_1
 		iload_2
