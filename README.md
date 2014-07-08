@@ -20,6 +20,7 @@ Supported Commands:
 		irem
 		ishl
 		ishr
+		iushr
 		iload_0
 		iload_1
 		iload_2
