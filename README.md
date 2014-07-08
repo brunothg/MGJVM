@@ -48,6 +48,10 @@ Supported Commands:
 		condition: eq(equals), ne(not equal), lt(lower than), ge(greater equal), gt(greater than), le(lower equal)
 
 
+Function decleration:
+
+<name>(<TypeChars input>)<TypeChar return>[:<number of local variables excluding this>];
+
 
 Example Program:
 
