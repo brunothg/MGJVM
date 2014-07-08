@@ -95,6 +95,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execIAND(stackFrame) + "I");
 		} else if (parts[0].equals("ior")) {
 			stackFrame.push(execIOR(stackFrame) + "I");
+		} else if (parts[0].equals("ixor")) {
+			stackFrame.push(execIXOR(stackFrame) + "I");
 		} else if (parts[0].equals("ineg")) {
 			stackFrame.push(execINEG(stackFrame) + "I");
 		} else if (parts[0].equals("iload")) {
