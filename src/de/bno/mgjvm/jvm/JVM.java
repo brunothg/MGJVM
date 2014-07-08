@@ -102,7 +102,7 @@ public class JVM implements CallStack {
 		} else if (parts[0].equals("istore")) {
 			execISTORE(stackFrame, Integer(parts[1]));
 		} else if (parts[0].equals("ireturn")) {
-			execIRETURN(stackFrame, info);
+			execIRETURN(stackFrame, info, this, pc);
 		} else if (parts[0].equals("i2b")) {
 			stackFrame.push(execI2B(stackFrame) + "I");
 		} else if (parts[0].equals("i2c")) {

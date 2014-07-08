@@ -202,7 +202,8 @@ public class InstructionSet {
 		sf.setField(v1, index);
 	}
 
-	public static void execIRETURN(StackFrame sf, ExecutionInformationFrame eif) {
+	public static void execIRETURN(StackFrame sf,
+			ExecutionInformationFrame eif, CallStack cs, ProgramCounter pc) {
 
 		eif.popActiveStackFrame();
 
@@ -219,6 +220,8 @@ public class InstructionSet {
 
 		StackFrame stackFrame = eif.peekActiveStackFrame();
 		stackFrame.push(ret + "I");
+
+		execRETURN(pc, null, cs);
 	}
 
 	public static int execI2B(StackFrame sf) {
@@ -452,7 +455,8 @@ public class InstructionSet {
 	public static void execRETURN(ProgramCounter pc,
 			ExecutionInformationFrame info, CallStack cs) {
 		pc.setProgramCount(cs.popCallStack());
-		if (pc.getProgramCount() > 0) {
+
+		if (pc.getProgramCount() > 0 && info != null) {
 			info.popActiveStackFrame();
 		}
 	}
@@ -530,10 +534,6 @@ public class InstructionSet {
 
 	private static boolean isComment(String aclL) {
 		return aclL.trim().startsWith("//");
-	}
-
-	private static boolean isReturn(String aclL) {
-		return aclL.trim().endsWith("return");
 	}
 
 	public static int Integer(String s) {
