@@ -15,6 +15,7 @@ Supported Commands:
 		imul
 		idiv
 		iand
+		ior
 		iload_0
 		iload_1
 		iload_2
