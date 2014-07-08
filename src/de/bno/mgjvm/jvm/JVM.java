@@ -179,7 +179,7 @@ public class JVM implements CallStack {
 	private void createFunctionTable() {
 
 		for (int i = 0; i < prog.length; i++) {
-			if (prog[i].endsWith(";")) {
+			if (!isComment(prog[i]) && prog[i].endsWith(";")) {
 				functionTable.put(getFunctionIdentifier(prog[i]),
 						new Integer(i));
 			}

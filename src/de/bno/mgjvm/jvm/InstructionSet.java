@@ -532,7 +532,7 @@ public class InstructionSet {
 		return s.trim().substring(0, s.length() - 1);
 	}
 
-	private static boolean isComment(String aclL) {
+	public static boolean isComment(String aclL) {
 		return aclL.trim().startsWith("//");
 	}
 
