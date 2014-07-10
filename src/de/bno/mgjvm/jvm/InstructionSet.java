@@ -574,6 +574,17 @@ public class InstructionSet {
 		return (int) value;
 	}
 
+	public static void execSWAP(StackFrame sf) {
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		sf.push(v1);
+		sf.push(v2);
+	}
+
 	public static void execGOTO(int line, String[] prog, ProgramCounter pc) {
 
 		if (line < 1 || line > prog.length) {

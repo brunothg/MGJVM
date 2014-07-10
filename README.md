@@ -40,9 +40,11 @@ Supported Commands:
 		if_icmp<cond> <line number>
 		if<cond> <line number>
 		iinc <index> <byte value>
-		bipush
-		dup
 		ireturn
+		bipush
+		sipush
+		swap
+		dup
 		goto <line number>
 		ldc <index>
 		invokevirtual <function>
