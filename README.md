@@ -43,6 +43,9 @@ Supported Commands:
 		ireturn
 		bipush
 		sipush
+		l2d
+		l2f
+		l2i
 		swap
 		pop
 		dup

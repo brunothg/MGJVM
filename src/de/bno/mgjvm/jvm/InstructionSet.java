@@ -574,6 +574,54 @@ public class InstructionSet {
 		return (int) value;
 	}
 
+	public static double execL2D(StackFrame sf) {
+
+		double ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("J"))) {
+			throw new JVMTypeException("l2d wrong type on stack V1: " + v1);
+		}
+		ret = (double) Long(Value(v1));
+
+		return ret;
+	}
+
+	public static float execL2F(StackFrame sf) {
+
+		float ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("J"))) {
+			throw new JVMTypeException("l2f wrong type on stack V1: " + v1);
+		}
+		ret = (float) Long(Value(v1));
+
+		return ret;
+	}
+
+	public static int execL2I(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("J"))) {
+			throw new JVMTypeException("l2i wrong type on stack V1: " + v1);
+		}
+		ret = (int) Long(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;
