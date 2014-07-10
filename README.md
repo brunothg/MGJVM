@@ -1,7 +1,7 @@
 MGJVM
 =====
 
-Minimale grafische JVM
+Minimale grafische JVM (Ref JVM 7)
 
 Supported Commands:
 		iconst_m1
