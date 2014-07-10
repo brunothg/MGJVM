@@ -570,6 +570,10 @@ public class InstructionSet {
 		return (int) value;
 	}
 
+	public static int execSIPUSH(short value) {
+		return (int) value;
+	}
+
 	public static void execGOTO(int line, String[] prog, ProgramCounter pc) {
 
 		if (line < 1 || line > prog.length) {
@@ -722,6 +726,22 @@ public class InstructionSet {
 
 	public static byte Byte(String s) {
 		return Byte.valueOf(s).byteValue();
+	}
+
+	public static short Short(String s) {
+		return Short.valueOf(s).byteValue();
+	}
+
+	public static long Long(String s) {
+		return Long.valueOf(s).byteValue();
+	}
+
+	public static float Float(String s) {
+		return Float.valueOf(s).byteValue();
+	}
+
+	public static double Double(String s) {
+		return Double.valueOf(s).byteValue();
 	}
 
 }
