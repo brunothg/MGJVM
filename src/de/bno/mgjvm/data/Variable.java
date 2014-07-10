@@ -18,11 +18,49 @@ public class Variable {
 	}
 
 	public String getType() {
-		return type;
+		String ret = type;
+
+		return ret;
 	}
 
 	public String getValue() {
-		return value;
+		String ret = value;
+
+		switch (type.toLowerCase()) {
+		case "short":
+			ret = "" + Short.valueOf(ret).shortValue();
+			break;
+		case "int":
+			ret = "" + Integer.valueOf(ret).intValue();
+			break;
+		case "long":
+			ret = "" + Long.valueOf(ret).longValue();
+			break;
+		case "float":
+			ret = "" + Float.valueOf(ret).floatValue();
+			break;
+		case "double":
+			ret = "" + Double.valueOf(ret).doubleValue();
+			break;
+		case "byte":
+			ret = "" + Byte.valueOf(ret).byteValue();
+			break;
+		case "char":
+			ret = "" + ((int) addCharValues(ret));
+			break;
+		}
+
+		return ret;
+	}
+
+	private int addCharValues(String s) {
+		int ret = 0;
+
+		for (int i = 0; i < s.length(); i++) {
+			ret += s.charAt(i);
+		}
+
+		return ret;
 	}
 
 	public boolean isMutable() {
@@ -34,7 +72,7 @@ public class Variable {
 
 		switch (type.toLowerCase()) {
 		case "short":
-			ret = "S";
+			ret = "I";
 			break;
 		case "int":
 			ret = "I";
@@ -49,10 +87,10 @@ public class Variable {
 			ret = "D";
 			break;
 		case "byte":
-			ret = "B";
+			ret = "I";
 			break;
 		case "char":
-			ret = "C";
+			ret = "I";
 			break;
 		default:
 			ret = type;
