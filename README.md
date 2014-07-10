@@ -44,6 +44,7 @@ Supported Commands:
 		bipush
 		sipush
 		swap
+		pop
 		dup
 		goto <line number>
 		ldc <index>

@@ -145,6 +145,8 @@ public class JVM implements CallStack {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {
 			execSWAP(stackFrame);
+		} else if (parts[0].equals("pop")) {
+			execPOP(stackFrame);
 		} else if (parts[0].equals("goto")) {
 			execGOTO(Integer(parts[1]), prog, pc);
 		} else if (parts[0].startsWith("ldc")) {

@@ -647,6 +647,10 @@ public class InstructionSet {
 		sf.push(v1);
 	}
 
+	public static void execPOP(StackFrame sf) {
+		sf.pop();
+	}
+
 	public static void execRETURN(ProgramCounter pc,
 			ExecutionInformationFrame info, CallStack cs) {
 		pc.setProgramCount(cs.popCallStack());
