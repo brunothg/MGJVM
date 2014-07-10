@@ -622,6 +622,24 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static long execLADD(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("land wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) + Long(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

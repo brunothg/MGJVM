@@ -147,6 +147,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execL2F(stackFrame) + "F");
 		} else if (parts[0].equals("l2i")) {
 			stackFrame.push(execL2I(stackFrame) + "I");
+		} else if (parts[0].equals("ladd")) {
+			stackFrame.push(execLADD(stackFrame) + "J");
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {

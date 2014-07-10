@@ -46,6 +46,7 @@ Supported Commands:
 		l2d
 		l2f
 		l2i
+		ladd
 		swap
 		pop
 		dup
