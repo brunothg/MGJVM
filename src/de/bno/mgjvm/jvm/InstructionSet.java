@@ -1231,6 +1231,35 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static void execFSTORE_(StackFrame sf, String fstore) {
+
+		int index = Integer(fstore.substring(fstore.indexOf('_') + 1));
+
+		if (index < 0 || index > 3) {
+			throw new JVMParseException(fstore + " unknown");
+		}
+
+		execFSTORE(sf, index);
+	}
+
+	public static void execFSTORE(StackFrame sf, int index) {
+
+		String v1;
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("fstore wrong type on stack: " + v1);
+		}
+
+		sf.setField(v1, index);
+	}
+
 	public static void execFRETURN(StackFrame sf,
 			ExecutionInformationFrame eif, CallStack cs, ProgramCounter pc) {
 

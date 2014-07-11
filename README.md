@@ -90,6 +90,11 @@ Supported Commands:
 		fload_1
 		fload_2
 		fload_3
+		fstore <index>
+		fstore_0
+		fstore_1
+		fstore_2
+		fstore_3
 		swap
 		pop
 		dup
