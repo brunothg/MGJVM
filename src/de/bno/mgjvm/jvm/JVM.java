@@ -203,6 +203,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execFSUB(stackFrame) + "F");
 		} else if (parts[0].equals("frem")) {
 			stackFrame.push(execFREM(stackFrame) + "F");
+		} else if (parts[0].equals("freturn")) {
+			execFRETURN(stackFrame, info, this, pc);
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {

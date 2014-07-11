@@ -1129,6 +1129,28 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static void execFRETURN(StackFrame sf,
+			ExecutionInformationFrame eif, CallStack cs, ProgramCounter pc) {
+
+		eif.popActiveStackFrame();
+
+		float ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("freturn wrong type on stack V1: " + v1);
+		}
+		ret = Float(Value(v1));
+
+		StackFrame stackFrame = eif.peekActiveStackFrame();
+		stackFrame.push(ret + "F");
+
+		execRETURN(pc, null, cs);
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;
