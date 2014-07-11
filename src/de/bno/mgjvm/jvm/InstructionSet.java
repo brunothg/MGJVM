@@ -632,10 +632,74 @@ public class InstructionSet {
 		v2 = sf.pop();
 
 		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
-			throw new JVMTypeException("land wrong type on stack V1:" + v2
+			throw new JVMTypeException("ladd wrong type on stack V1:" + v2
 					+ " V2:" + v1);
 		}
 		ret = Long(Value(v2)) + Long(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLAND(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("land wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) & Long(Value(v1));
+
+		return ret;
+	}
+
+	public static int execLCMP(StackFrame sf) {
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lcmp wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+
+		long dif = Long(Value(v2)) - Long(Value(v1));
+		;
+
+		if (dif == 0) {
+			ret = 0;
+		} else if (dif > 0) {
+			ret = 1;
+		} else {
+			ret = -1;
+		}
+
+		return ret;
+	}
+
+	public static long execLDIV(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("ldiv wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) / Long(Value(v1));
 
 		return ret;
 	}

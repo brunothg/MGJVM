@@ -47,6 +47,9 @@ Supported Commands:
 		l2f
 		l2i
 		ladd
+		land
+		lcmp
+		ldiv
 		swap
 		pop
 		dup
