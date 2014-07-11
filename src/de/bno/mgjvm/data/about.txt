@@ -1,7 +1,7 @@
 <b>Minimal Graphic Java Virtual Machine</b>
 
-Version: 1.0
-Release date: 11.07.2014
+Version: 1.1
+Release date: 11.07.2014 22:59
 Author: Marvin Bruns
 Homepage: <a href="https://github.com/brunothg/MGJVM">https://github.com/brunothg/MGJVM</a>
 
