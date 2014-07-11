@@ -80,6 +80,7 @@ Supported Commands:
 		fmul
 		fneg
 		fsub
+		frem
 		swap
 		pop
 		dup
