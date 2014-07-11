@@ -235,6 +235,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execDREM(stackFrame) + "D");
 		} else if (parts[0].equals("dsub")) {
 			stackFrame.push(execDSUB(stackFrame) + "D");
+		} else if (parts[0].startsWith("dconst_")) {
+			stackFrame.push(execDCONST_(parts[0]) + "D");
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {

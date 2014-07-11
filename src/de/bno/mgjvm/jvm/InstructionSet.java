@@ -1436,6 +1436,25 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static double execDCONST_(String string) {
+		double value = -2;
+
+		switch (string.substring(string.indexOf('_') + 1)) {
+		case "0":
+			value = 0;
+			break;
+		case "1":
+			value = 1;
+			break;
+		}
+
+		if (value == -2) {
+			throw new JVMParseException(string + " unknown");
+		}
+
+		return value;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

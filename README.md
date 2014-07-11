@@ -104,6 +104,8 @@ Supported Commands:
 		dneg
 		drem
 		dsub
+		dconst_0
+		dconst_1
 		swap
 		pop
 		dup
