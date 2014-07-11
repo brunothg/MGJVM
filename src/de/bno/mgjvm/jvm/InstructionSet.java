@@ -1129,6 +1129,48 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static int execFCMP(StackFrame sf, String fcmp) {
+
+		boolean greater;
+
+		if (fcmp.trim().charAt(fcmp.length() - 1) == 'g') {
+			greater = true;
+		} else if (fcmp.trim().charAt(fcmp.length() - 1) == 'l') {
+			greater = false;
+		} else {
+			throw new JVMParseException(fcmp + " unknown");
+		}
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("F") && v2.endsWith("F"))) {
+			throw new JVMTypeException("fcmp wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+
+		float v2f = Float(Value(v2));
+		float v1f = Float(Value(v1));
+
+		if (v2f == Float.NaN || v1f == Float.NaN) {
+			ret = (greater) ? 1 : -1;
+		} else {
+			if (v2f == v1f) {
+				ret = 0;
+			} else if (v2f > v1f) {
+				ret = 1;
+			} else {
+				ret = -1;
+			}
+		}
+
+		return ret;
+	}
+
 	public static float execFCONST_(String string) {
 		float value = -2;
 

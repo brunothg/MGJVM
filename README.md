@@ -84,6 +84,7 @@ Supported Commands:
 		fconst_0
 		fconst_1
 		fconst_2
+		fcmp
 		swap
 		pop
 		dup
