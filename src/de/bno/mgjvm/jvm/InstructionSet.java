@@ -1330,6 +1330,112 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static double execDADD(StackFrame sf) {
+
+		double ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("D") && v2.endsWith("D"))) {
+			throw new JVMTypeException("dadd wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Double(Value(v2)) + Double(Value(v1));
+
+		return ret;
+	}
+
+	public static double execDDIV(StackFrame sf) {
+
+		double ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("D") && v2.endsWith("D"))) {
+			throw new JVMTypeException("dadd wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Double(Value(v2)) / Double(Value(v1));
+
+		return ret;
+	}
+
+	public static double execDMUL(StackFrame sf) {
+
+		double ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("D") && v2.endsWith("D"))) {
+			throw new JVMTypeException("dmul wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Double(Value(v2)) * Double(Value(v1));
+
+		return ret;
+	}
+
+	public static double execDNEG(StackFrame sf) {
+
+		double ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("D"))) {
+			throw new JVMTypeException("dneg wrong type on stack V1:" + v1);
+		}
+		ret = -Double(Value(v1));
+
+		return ret;
+	}
+
+	public static double execDREM(StackFrame sf) {
+
+		double ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("D") && v2.endsWith("D"))) {
+			throw new JVMTypeException("drem wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Double(Value(v2)) % Double(Value(v1));
+
+		return ret;
+	}
+
+	public static double execDSUB(StackFrame sf) {
+
+		double ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("D") && v2.endsWith("D"))) {
+			throw new JVMTypeException("dsub wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Double(Value(v2)) - Double(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

@@ -98,6 +98,12 @@ Supported Commands:
 		d2f
 		d2i
 		d2l
+		dad
+		ddiv
+		dmul
+		dneg
+		drem
+		dsub
 		swap
 		pop
 		dup
