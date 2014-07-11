@@ -71,6 +71,7 @@ Supported Commands:
 		lstore_2
 		lstore_3
 		lstore <index>
+		lreturn
 		swap
 		pop
 		dup

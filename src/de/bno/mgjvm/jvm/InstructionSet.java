@@ -953,6 +953,28 @@ public class InstructionSet {
 		sf.setField(v1, index);
 	}
 
+	public static void execLRETURN(StackFrame sf,
+			ExecutionInformationFrame eif, CallStack cs, ProgramCounter pc) {
+
+		eif.popActiveStackFrame();
+
+		long ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("J"))) {
+			throw new JVMTypeException("lreturn wrong type on stack V1: " + v1);
+		}
+		ret = Long(Value(v1));
+
+		StackFrame stackFrame = eif.peekActiveStackFrame();
+		stackFrame.push(ret + "J");
+
+		execRETURN(pc, null, cs);
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

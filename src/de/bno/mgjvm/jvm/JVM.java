@@ -183,6 +183,8 @@ public class JVM implements CallStack {
 			execLSTORE_(stackFrame, parts[0]);
 		} else if (parts[0].equals("lstore")) {
 			execLSTORE(stackFrame, Integer(parts[1]));
+		} else if (parts[0].equals("lreturn")) {
+			execLRETURN(stackFrame, info, this, pc);
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {
