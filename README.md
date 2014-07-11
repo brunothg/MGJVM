@@ -64,6 +64,8 @@ Supported Commands:
 		lload_2
 		lload_3
 		lload <index>
+		lconst_0
+		lconst_1
 		swap
 		pop
 		dup

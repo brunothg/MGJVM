@@ -575,6 +575,25 @@ public class InstructionSet {
 		return (int) value;
 	}
 
+	public static long execLCONST_(String string) {
+		long value = -2;
+
+		switch (string.substring(string.indexOf('_') + 1)) {
+		case "0":
+			value = 0;
+			break;
+		case "1":
+			value = 1;
+			break;
+		}
+
+		if (value == -2) {
+			throw new JVMParseException(string + " unknown");
+		}
+
+		return value;
+	}
+
 	public static double execL2D(StackFrame sf) {
 
 		double ret;

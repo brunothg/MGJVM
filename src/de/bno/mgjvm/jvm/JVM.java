@@ -141,6 +141,8 @@ public class JVM implements CallStack {
 			stackFrame.push(execBIPUSH(Byte(parts[1])) + "I");
 		} else if (parts[0].equals("sipush")) {
 			stackFrame.push(execSIPUSH(Short(parts[1])) + "I");
+		} else if (parts[0].startsWith("lconst_")) {
+			stackFrame.push(execLCONST_(parts[0]) + "J");
 		} else if (parts[0].equals("l2d")) {
 			stackFrame.push(execL2D(stackFrame) + "D");
 		} else if (parts[0].equals("l2f")) {
