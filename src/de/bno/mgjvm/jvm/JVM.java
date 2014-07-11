@@ -207,6 +207,10 @@ public class JVM implements CallStack {
 			stackFrame.push(execFCMP(stackFrame, parts[0]) + "I");
 		} else if (parts[0].startsWith("fconst_")) {
 			stackFrame.push(execFCONST_(parts[0]) + "F");
+		} else if (parts[0].equals("fload")) {
+			stackFrame.push(execFLOAD(stackFrame, Integer(parts[1])) + "F");
+		} else if (parts[0].startsWith("fload_")) {
+			stackFrame.push(execFLOAD_(stackFrame, parts[0]) + "F");
 		} else if (parts[0].equals("freturn")) {
 			execFRETURN(stackFrame, info, this, pc);
 		} else if (parts[0].equals("dup")) {

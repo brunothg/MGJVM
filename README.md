@@ -85,6 +85,11 @@ Supported Commands:
 		fconst_1
 		fconst_2
 		fcmp
+		fload <index>
+		fload_0
+		fload_1
+		fload_2
+		fload_3
 		swap
 		pop
 		dup

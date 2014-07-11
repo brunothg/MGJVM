@@ -11,8 +11,10 @@ import de.bno.mgjvm.grafik.StackFrame;
 
 public class InstructionSet {
 
+	private static final double DOUBLE_DEF = 0.0;
+	private static final float FLOAT_DEF = 0.0f;
 	private static final int INTEGER_DEF = 0;
-	private static final int LONG_DEF = 0;
+	private static final long LONG_DEF = 0;
 	private static final String DEF_EMPTY_LOCAL_VAR = "-";
 	private static final String typeValues = "IJSBCDF";
 
@@ -1191,6 +1193,42 @@ public class InstructionSet {
 		}
 
 		return value;
+	}
+
+	public static float execFLOAD_(StackFrame sf, String fload) {
+
+		int index = Integer(fload.substring(fload.indexOf('_') + 1));
+
+		if (index < 0 || index > 3) {
+			throw new JVMParseException(fload + " unknown");
+		}
+
+		return execFLOAD(sf, index);
+	}
+
+	public static float execFLOAD(StackFrame sf, int index) {
+
+		float ret;
+
+		String v1;
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		v1 = sf.getField(index);
+
+		if (v1.equals(DEF_EMPTY_LOCAL_VAR)) {
+			return FLOAT_DEF;
+		}
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("fload wrong type on stack: " + v1);
+		}
+		ret = Float(Value(v1));
+
+		return ret;
 	}
 
 	public static void execFRETURN(StackFrame sf,
