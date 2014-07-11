@@ -1455,6 +1455,48 @@ public class InstructionSet {
 		return value;
 	}
 
+	public static int execDCMP(StackFrame sf, String dcmp) {
+
+		boolean greater;
+
+		if (dcmp.trim().charAt(dcmp.length() - 1) == 'g') {
+			greater = true;
+		} else if (dcmp.trim().charAt(dcmp.length() - 1) == 'l') {
+			greater = false;
+		} else {
+			throw new JVMParseException(dcmp + " unknown");
+		}
+
+		int ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("D") && v2.endsWith("D"))) {
+			throw new JVMTypeException("dcmp wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+
+		double v2f = Double(Value(v2));
+		double v1f = Double(Value(v1));
+
+		if (v2f == Double.NaN || v1f == Double.NaN) {
+			ret = (greater) ? 1 : -1;
+		} else {
+			if (v2f == v1f) {
+				ret = 0;
+			} else if (v2f > v1f) {
+				ret = 1;
+			} else {
+				ret = -1;
+			}
+		}
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

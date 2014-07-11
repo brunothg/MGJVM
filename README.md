@@ -106,6 +106,8 @@ Supported Commands:
 		dsub
 		dconst_0
 		dconst_1
+		dcmpl
+		dcmpg
 		swap
 		pop
 		dup
