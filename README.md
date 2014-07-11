@@ -95,6 +95,9 @@ Supported Commands:
 		fstore_1
 		fstore_2
 		fstore_3
+		d2f
+		d2i
+		d2l
 		swap
 		pop
 		dup

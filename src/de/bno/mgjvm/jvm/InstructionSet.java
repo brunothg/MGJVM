@@ -1282,6 +1282,54 @@ public class InstructionSet {
 		execRETURN(pc, null, cs);
 	}
 
+	public static float execD2F(StackFrame sf) {
+
+		float ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("D"))) {
+			throw new JVMTypeException("d2f wrong type on stack V1: " + v1);
+		}
+		ret = (float) Double(Value(v1));
+
+		return ret;
+	}
+
+	public static int execD2I(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("D"))) {
+			throw new JVMTypeException("d2i wrong type on stack V1: " + v1);
+		}
+		ret = (int) Double(Value(v1));
+
+		return ret;
+	}
+
+	public static long execD2L(StackFrame sf) {
+
+		long ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("D"))) {
+			throw new JVMTypeException("d2l wrong type on stack V1: " + v1);
+		}
+		ret = (long) Double(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;
