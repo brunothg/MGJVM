@@ -109,7 +109,7 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 		tablePanel.add(fieldPool);
 		contentPane.add(splitPane, BorderLayout.CENTER);
 
-		menuBar = new BMenuBar();
+		menuBar = new BMenuBar(this);
 		menuBar.setSaveListener(this);
 		menuBar.setOpenListener(this);
 		menuBar.setExecutionListener(this);
@@ -290,7 +290,6 @@ public class GrafischeJVM extends JFrame implements SaveListener, OpenListener,
 
 	@Override
 	public void execute() {
-		// TODO: Execute finish
 		boolean execute;
 
 		try {

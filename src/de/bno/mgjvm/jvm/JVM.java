@@ -376,7 +376,6 @@ public class JVM implements CallStack {
 		fp = null;
 		functionTable = null;
 		prog = null;
-		// TODO: Delete JVM
 
 		deleted = true;
 

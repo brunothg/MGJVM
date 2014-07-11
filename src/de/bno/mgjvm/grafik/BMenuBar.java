@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -39,10 +40,21 @@ public class BMenuBar extends JMenuBar {
 
 	// Execution Menu
 
-	public BMenuBar() {
+	// Help Menu
+	private JMenu mnHelp;
+	private JMenuItem mniAbout;
+
+	private JFrame parent;
+
+	// Help Menu
+
+	public BMenuBar(JFrame parent) {
+
+		this.parent = parent;
 
 		createFileMenu();
 		createExecutionMenu();
+		createHelpMenu();
 	}
 
 	public void setFileMenuEnabled(boolean b) {
@@ -107,6 +119,8 @@ public class BMenuBar extends JMenuBar {
 						executionListener.execute();
 					}
 
+				} else if (source == mniAbout) {
+					AboutDialog.showDialog(parent);
 				}
 			}
 		};
@@ -190,6 +204,17 @@ public class BMenuBar extends JMenuBar {
 		mniFinish.addActionListener(createActionListener());
 		mniFinish.setEnabled(false);
 		mnExecution.add(mniFinish);
+	}
+
+	private void createHelpMenu() {
+
+		mnHelp = new JMenu("Help");
+		mnHelp.setMnemonic(KeyEvent.VK_H);
+		add(mnHelp);
+
+		mniAbout = new JMenuItem("About MGJVM");
+		mniAbout.addActionListener(createActionListener());
+		mnHelp.add(mniAbout);
 	}
 
 	private void setShortcut(JMenuItem mni, int key, int mask) {

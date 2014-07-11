@@ -1,0 +1,13 @@
+<b>Minimal Graphic Java Virtual Machine</b>
+
+Version: 1.0
+Release date: 11.07.2014
+Author: Marvin Bruns
+Homepage: <a href="https://github.com/brunothg/MGJVM">https://github.com/brunothg/MGJVM</a>
+
+Icons:
+	Artist: Oxygen Team
+	Iconset Homepage: <a href="https://github.com/pasnox/oxygen-icons-png">https://github.com/pasnox/oxygen-icons-png</a>
+	License: GNU Lesser General Public License
+	Commercial usage: Allowed
+	www: <a href="http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org.html">http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org.html</a>
