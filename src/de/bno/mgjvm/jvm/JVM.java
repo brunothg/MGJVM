@@ -247,6 +247,8 @@ public class JVM implements CallStack {
 			execDSTORE_(stackFrame, parts[0]);
 		} else if (parts[0].equals("dstore")) {
 			execDSTORE(stackFrame, Integer(parts[1]));
+		} else if (parts[0].equals("dreturn")) {
+			execDRETURN(stackFrame, info, this, pc);
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {

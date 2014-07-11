@@ -113,6 +113,7 @@ Supported Commands:
 		dload_1
 		dload_2
 		dload_3
+		dreturn
 		swap
 		pop
 		dup

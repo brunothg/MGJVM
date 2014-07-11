@@ -1562,6 +1562,28 @@ public class InstructionSet {
 		sf.setField(v1, index);
 	}
 
+	public static void execDRETURN(StackFrame sf,
+			ExecutionInformationFrame eif, CallStack cs, ProgramCounter pc) {
+
+		eif.popActiveStackFrame();
+
+		double ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("D"))) {
+			throw new JVMTypeException("dreturn wrong type on stack V1: " + v1);
+		}
+		ret = Double(Value(v1));
+
+		StackFrame stackFrame = eif.peekActiveStackFrame();
+		stackFrame.push(ret + "D");
+
+		execRETURN(pc, null, cs);
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;
