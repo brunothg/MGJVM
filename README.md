@@ -75,6 +75,11 @@ Supported Commands:
 		f2d
 		f2i
 		f2l
+		fadd
+		fdiv
+		fmul
+		fneg
+		fsub
 		swap
 		pop
 		dup

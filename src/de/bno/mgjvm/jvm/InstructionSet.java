@@ -1023,6 +1023,94 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static float execFADD(StackFrame sf) {
+
+		float ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("F") && v2.endsWith("F"))) {
+			throw new JVMTypeException("fadd wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Float(Value(v2)) + Float(Value(v1));
+
+		return ret;
+	}
+
+	public static float execFDIV(StackFrame sf) {
+
+		float ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("F") && v2.endsWith("F"))) {
+			throw new JVMTypeException("fdiv wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Float(Value(v2)) / Float(Value(v1));
+
+		return ret;
+	}
+
+	public static float execFMUL(StackFrame sf) {
+
+		float ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("F") && v2.endsWith("F"))) {
+			throw new JVMTypeException("fmul wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Float(Value(v2)) * Float(Value(v1));
+
+		return ret;
+	}
+
+	public static float execFNEG(StackFrame sf) {
+
+		float ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("fadd wrong type on stack V1:" + v1);
+		}
+		ret = -Float(Value(v1));
+
+		return ret;
+	}
+
+	public static float execFSUB(StackFrame sf) {
+
+		float ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("F") && v2.endsWith("F"))) {
+			throw new JVMTypeException("fadd wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Float(Value(v2)) - Float(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;
