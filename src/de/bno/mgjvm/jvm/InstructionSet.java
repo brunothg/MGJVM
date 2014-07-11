@@ -1497,6 +1497,42 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static double execDLOAD_(StackFrame sf, String dload) {
+
+		int index = Integer(dload.substring(dload.indexOf('_') + 1));
+
+		if (index < 0 || index > 3) {
+			throw new JVMParseException(dload + " unknown");
+		}
+
+		return execDLOAD(sf, index);
+	}
+
+	public static double execDLOAD(StackFrame sf, int index) {
+
+		double ret;
+
+		String v1;
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		v1 = sf.getField(index);
+
+		if (v1.equals(DEF_EMPTY_LOCAL_VAR)) {
+			return DOUBLE_DEF;
+		}
+
+		if (!(v1.endsWith("D"))) {
+			throw new JVMTypeException("dload wrong type on stack: " + v1);
+		}
+		ret = Double(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

@@ -108,6 +108,11 @@ Supported Commands:
 		dconst_1
 		dcmpl
 		dcmpg
+		dload <index>
+		dload_0
+		dload_1
+		dload_2
+		dload_3
 		swap
 		pop
 		dup
