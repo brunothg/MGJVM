@@ -1129,6 +1129,28 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static float execFCONST_(String string) {
+		float value = -2;
+
+		switch (string.substring(string.indexOf('_') + 1)) {
+		case "0":
+			value = 0;
+			break;
+		case "1":
+			value = 1;
+			break;
+		case "2":
+			value = 2;
+			break;
+		}
+
+		if (value == -2) {
+			throw new JVMParseException(string + " unknown");
+		}
+
+		return value;
+	}
+
 	public static void execFRETURN(StackFrame sf,
 			ExecutionInformationFrame eif, CallStack cs, ProgramCounter pc) {
 

@@ -81,6 +81,9 @@ Supported Commands:
 		fneg
 		fsub
 		frem
+		fconst_0
+		fconst_1
+		fconst_2
 		swap
 		pop
 		dup
