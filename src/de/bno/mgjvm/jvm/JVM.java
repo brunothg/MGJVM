@@ -243,6 +243,10 @@ public class JVM implements CallStack {
 			stackFrame.push(execDLOAD_(stackFrame, parts[0]) + "D");
 		} else if (parts[0].startsWith("dcmp")) {
 			stackFrame.push(execDCMP(stackFrame, parts[0]) + "I");
+		} else if (parts[0].startsWith("dstore_")) {
+			execDSTORE_(stackFrame, parts[0]);
+		} else if (parts[0].equals("dstore")) {
+			execDSTORE(stackFrame, Integer(parts[1]));
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {
