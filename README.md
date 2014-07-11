@@ -66,6 +66,11 @@ Supported Commands:
 		lload <index>
 		lconst_0
 		lconst_1
+		lstore_0
+		lstore_1
+		lstore_2
+		lstore_3
+		lstore <index>
 		swap
 		pop
 		dup
