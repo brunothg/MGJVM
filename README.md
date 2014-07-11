@@ -50,6 +50,15 @@ Supported Commands:
 		land
 		lcmp
 		ldiv
+		lmul
+		lneg
+		lor
+		lrem
+		lshl
+		lshr
+		lsub
+		lushr
+		lxor
 		swap
 		pop
 		dup

@@ -704,6 +704,170 @@ public class InstructionSet {
 		return ret;
 	}
 
+	public static long execLMUL(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lmul wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) * Long(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLNEG(StackFrame sf) {
+
+		long ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("J"))) {
+			throw new JVMTypeException("lneg wrong type on stack V1:" + v1);
+		}
+		ret = -Long(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLOR(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lor wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) | Long(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLREM(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lrem wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+
+		long v2l = Long(Value(v2));
+		long v1l = Long(Value(v1));
+
+		ret = v2l - (v2l / v1l) * v1l;
+
+		return ret;
+	}
+
+	public static long execLSHL(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lshl wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) << Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLSUB(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lsub wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) - Long(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLSHR(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lshr wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) >> Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLUSHR(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("I") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lushr wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) >>> Integer(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLXOR(StackFrame sf) {
+
+		long ret;
+
+		String v1, v2;
+
+		v1 = sf.pop();
+		v2 = sf.pop();
+
+		if (!(v1.endsWith("J") && v2.endsWith("J"))) {
+			throw new JVMTypeException("lxor wrong type on stack V1:" + v2
+					+ " V2:" + v1);
+		}
+		ret = Long(Value(v2)) ^ Long(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

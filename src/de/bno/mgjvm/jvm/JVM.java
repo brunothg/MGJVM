@@ -155,6 +155,24 @@ public class JVM implements CallStack {
 			stackFrame.push(execLCMP(stackFrame) + "I");
 		} else if (parts[0].equals("ldiv")) {
 			stackFrame.push(execLDIV(stackFrame) + "J");
+		} else if (parts[0].equals("lmul")) {
+			stackFrame.push(execLMUL(stackFrame) + "J");
+		} else if (parts[0].equals("lneg")) {
+			stackFrame.push(execLNEG(stackFrame) + "J");
+		} else if (parts[0].equals("lor")) {
+			stackFrame.push(execLOR(stackFrame) + "J");
+		} else if (parts[0].equals("lrem")) {
+			stackFrame.push(execLREM(stackFrame) + "J");
+		} else if (parts[0].equals("lshl")) {
+			stackFrame.push(execLSHL(stackFrame) + "J");
+		} else if (parts[0].equals("lshr")) {
+			stackFrame.push(execLSHR(stackFrame) + "J");
+		} else if (parts[0].equals("lsub")) {
+			stackFrame.push(execLSUB(stackFrame) + "J");
+		} else if (parts[0].equals("lushr")) {
+			stackFrame.push(execLUSHR(stackFrame) + "J");
+		} else if (parts[0].equals("lxor")) {
+			stackFrame.push(execLXOR(stackFrame) + "J");
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {
