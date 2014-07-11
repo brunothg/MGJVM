@@ -12,6 +12,7 @@ import de.bno.mgjvm.grafik.StackFrame;
 public class InstructionSet {
 
 	private static final int INTEGER_DEF = 0;
+	private static final int LONG_DEF = 0;
 	private static final String DEF_EMPTY_LOCAL_VAR = "-";
 	private static final String typeValues = "IJSBCDF";
 
@@ -864,6 +865,42 @@ public class InstructionSet {
 					+ " V2:" + v1);
 		}
 		ret = Long(Value(v2)) ^ Long(Value(v1));
+
+		return ret;
+	}
+
+	public static long execLLOAD_(StackFrame sf, String lload) {
+
+		int index = Integer(lload.substring(lload.indexOf('_') + 1));
+
+		if (index < 0 || index > 3) {
+			throw new JVMParseException(lload + " unknown");
+		}
+
+		return execLLOAD(sf, index);
+	}
+
+	public static long execLLOAD(StackFrame sf, int index) {
+
+		long ret;
+
+		String v1;
+
+		if (index < 0 || index >= sf.getFieldSize()) {
+			throw new JVMParseException("Field index out of bounds " + index
+					+ ". Max is " + (sf.getFieldSize() - 1));
+		}
+
+		v1 = sf.getField(index);
+
+		if (v1.equals(DEF_EMPTY_LOCAL_VAR)) {
+			return LONG_DEF;
+		}
+
+		if (!(v1.endsWith("J"))) {
+			throw new JVMTypeException("lload wrong type on stack: " + v1);
+		}
+		ret = Long(Value(v1));
 
 		return ret;
 	}

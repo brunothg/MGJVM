@@ -59,6 +59,11 @@ Supported Commands:
 		lsub
 		lushr
 		lxor
+		lload_0
+		lload_1
+		lload_2
+		lload_3
+		lload <index>
 		swap
 		pop
 		dup
