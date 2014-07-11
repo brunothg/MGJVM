@@ -975,6 +975,54 @@ public class InstructionSet {
 		execRETURN(pc, null, cs);
 	}
 
+	public static double execF2D(StackFrame sf) {
+
+		double ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("f2d wrong type on stack V1: " + v1);
+		}
+		ret = (double) Float(Value(v1));
+
+		return ret;
+	}
+
+	public static int execF2I(StackFrame sf) {
+
+		int ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("f2i wrong type on stack V1: " + v1);
+		}
+		ret = (int) Float(Value(v1));
+
+		return ret;
+	}
+
+	public static long execF2L(StackFrame sf) {
+
+		long ret;
+
+		String v1;
+
+		v1 = sf.pop();
+
+		if (!(v1.endsWith("F"))) {
+			throw new JVMTypeException("f2l wrong type on stack V1: " + v1);
+		}
+		ret = (long) Float(Value(v1));
+
+		return ret;
+	}
+
 	public static void execSWAP(StackFrame sf) {
 
 		String v1, v2;

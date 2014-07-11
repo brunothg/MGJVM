@@ -185,6 +185,12 @@ public class JVM implements CallStack {
 			execLSTORE(stackFrame, Integer(parts[1]));
 		} else if (parts[0].equals("lreturn")) {
 			execLRETURN(stackFrame, info, this, pc);
+		} else if (parts[0].equals("f2d")) {
+			stackFrame.push(execF2D(stackFrame) + "D");
+		} else if (parts[0].equals("f2i")) {
+			stackFrame.push(execF2I(stackFrame) + "I");
+		} else if (parts[0].equals("f2l")) {
+			stackFrame.push(execF2L(stackFrame) + "J");
 		} else if (parts[0].equals("dup")) {
 			execDUP(stackFrame);
 		} else if (parts[0].equals("swap")) {
