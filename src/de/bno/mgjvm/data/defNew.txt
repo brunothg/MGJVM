@@ -1,2 +1,9 @@
 <init>()V;
+invokevirtual helloworld(V)I
 return
+
+helloworld()I;
+iconst_1
+iconst_2
+iadd
+ireturn
